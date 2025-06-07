@@ -7,7 +7,7 @@ class Enemigo {
 public:
     Enemigo(sf::Texture& texture, float x);
 
-    void actualizar(float velocidad);
+    void actualizar();  // ahora sin parámetro
     void draw(sf::RenderWindow& ventana);
 
     float getPosX() const;
@@ -16,7 +16,7 @@ public:
 
 private:
     sf::Sprite sprite;
+    float velocidad;  // velocidad propia de cada enemigo
 };
 
 #endif
-

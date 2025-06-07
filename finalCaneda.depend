@@ -1837,7 +1837,7 @@
 	<SFML/Graphics.hpp>
 	<vector>
 
-1749317141 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
+1749318171 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
 	"VistaJuego.h"
 	"VistaMuerte.h"
 	<iostream>
@@ -1884,7 +1884,7 @@
 	"VistaMenu.h"
 	<iostream>
 
-1749311438 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\enemigo.h
+1749318351 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\enemigo.h
 	<SFML/Graphics.hpp>
 
 1749311668 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp

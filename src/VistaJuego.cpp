@@ -28,7 +28,7 @@ VistaJuego::VistaJuego() {
     }
 
     personaje = new Personaje(texturaPersonaje, 100, 500);
-    tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(2.0f))); // primer spawn aleatorio entre 2 y 4 seg
+    tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (2.0f))); // primer spawn aleatorio entre 2 y 4 seg
 }
 
 VistaJuego::~VistaJuego() {
@@ -68,7 +68,7 @@ void VistaJuego::actualizar(Juego& juego) {
 
     personaje->setPosX(nuevaPosX);
 
-    // Actualizar salto y demás
+    // Actualizar salto
     personaje->actualizar();
 
     // Spawn de rocas con tiempo variable entre 2 y 4 segundos
@@ -77,8 +77,8 @@ void VistaJuego::actualizar(Juego& juego) {
         rocas.push_back(new Roca(texturaRoca, x));
         clockRocas.restart();
 
-        // Setear próximo spawn aleatorio entre 2 y 4 segundos
-        tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(4.0f)));
+        // Próximo spawn aleatorio entre 2 y 4 segundos
+        tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (2.0f)));
     }
 
     // Spawn de enemigos cada 2.5 seg
@@ -92,9 +92,9 @@ void VistaJuego::actualizar(Juego& juego) {
         rocas[i]->actualizar(0.13f);
     }
 
-    // Actualizar enemigos
+    // Actualizar enemigos (con su velocidad propia)
     for (size_t i = 0; i < enemigos.size(); ++i) {
-        enemigos[i]->actualizar(0.25f);
+        enemigos[i]->actualizar(); // ahora no se pasa parámetro
     }
 
     // Verificar colisiones
