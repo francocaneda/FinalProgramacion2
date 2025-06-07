@@ -26,7 +26,7 @@ VistaMenu::VistaMenu() {
         text.setFont(font);
         text.setString(textos[i]);
         text.setCharacterSize(40);
-        text.setPosition(500, 250 + i * 60);
+        text.setPosition(250, 250 + i * 60);
         opciones.push_back(text);
     }
 

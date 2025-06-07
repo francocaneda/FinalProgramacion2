@@ -1825,7 +1825,7 @@
 1749311016 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\juego.cpp
 	"Juego.h"
 
-1749316259 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
+1749317131 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
 	"Personaje.h"
 
 1749310976 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vista.h
@@ -1837,13 +1837,11 @@
 	<SFML/Graphics.hpp>
 	<vector>
 
-1749316875 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
+1749317141 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
 	"VistaJuego.h"
 	"VistaMuerte.h"
 	<iostream>
 	<algorithm>
-	<cstdlib>
-	<ctime>
 
 1749317026 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
 	<SFML/Graphics.hpp>
@@ -1859,7 +1857,7 @@
 	"Juego.h"
 	<SFML/Graphics.hpp>
 
-1749315347 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamenu.cpp
+1749317491 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamenu.cpp
 	"VistaMenu.h"
 	"VistaJuego.h"
 	"VistaOpciones.h"

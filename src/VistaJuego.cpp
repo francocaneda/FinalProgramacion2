@@ -78,7 +78,7 @@ void VistaJuego::actualizar(Juego& juego) {
         clockRocas.restart();
 
         // Setear próximo spawn aleatorio entre 2 y 4 segundos
-        tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(2.0f)));
+        tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(4.0f)));
     }
 
     // Spawn de enemigos cada 2.5 seg
