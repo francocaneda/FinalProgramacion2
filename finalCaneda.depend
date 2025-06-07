@@ -1874,12 +1874,13 @@
 1749311341 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\roca.cpp
 	"Roca.h"
 
-1749315366 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistaopciones.h
+1749318685 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistaopciones.h
+	<SFML/Graphics.hpp>
+	<vector>
 	"Vista.h"
 	"Juego.h"
-	<SFML/Graphics.hpp>
 
-1749315374 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistaopciones.cpp
+1749318848 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistaopciones.cpp
 	"VistaOpciones.h"
 	"VistaMenu.h"
 	<iostream>
@@ -1887,6 +1888,7 @@
 1749318351 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\enemigo.h
 	<SFML/Graphics.hpp>
 
-1749311668 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp
+1749318364 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp
 	"Enemigo.h"
+	<cstdlib>
 

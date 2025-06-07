@@ -25,8 +25,18 @@ VistaMenu::VistaMenu() {
         sf::Text text;
         text.setFont(font);
         text.setString(textos[i]);
-        text.setCharacterSize(40);
-        text.setPosition(250, 250 + i * 60);
+
+        // Si es "Play", lo hacemos más grande
+        if (i == 0) {
+            text.setCharacterSize(50);  // Play más grande
+        } else {
+            text.setCharacterSize(40);  // Resto normal
+        }
+
+        // Usamos espaciado un poco más amplio
+        float espaciadoBase = 70;
+        text.setPosition(250, 250 + i * espaciadoBase);
+
         opciones.push_back(text);
     }
 
