@@ -8,6 +8,7 @@
 class VistaMuerte : public Vista {
 public:
     VistaMuerte();
+
     void manejarEventos(sf::RenderWindow& ventana, Juego& juego) override;
     void actualizar(Juego& juego) override;
     void dibujar(sf::RenderWindow& ventana) override;
@@ -15,7 +16,11 @@ public:
 private:
     sf::Font font;
     sf::Text texto;
-    bool cambioVistaSolicitado;  // Nuevo flag
+
+    sf::Texture texturaFondo;
+    sf::Sprite spriteFondo;
+
+    bool cambioVistaSolicitado;
 };
 
 #endif

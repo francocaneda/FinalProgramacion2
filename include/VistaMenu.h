@@ -19,6 +19,9 @@ private:
     std::vector<sf::Text> opciones;
     int seleccionActual = 0;
 
+    sf::Texture texturaFondo;
+    sf::Sprite spriteFondo;
+
     void actualizarColores();
 };
 

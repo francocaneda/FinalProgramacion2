@@ -7,6 +7,16 @@ VistaOpciones::VistaOpciones() {
         std::cerr << "Error cargando la fuente arial.ttf\n";
     }
 
+    if (!texturaFondo.loadFromFile("assets/fondoMenu.png")) {
+        std::cerr << "Error cargando fondoMenu.png\n";
+    }
+    spriteFondo.setTexture(texturaFondo);
+
+    sf::Vector2u textureSize = texturaFondo.getSize();
+    float scaleX = 1280.0f / textureSize.x;
+    float scaleY = 720.0f / textureSize.y;
+    spriteFondo.setScale(scaleX, scaleY);
+
     texto.setFont(font);
     texto.setString("OPCIONES\nPresiona ESC para volver al menu");
     texto.setCharacterSize(30);
@@ -33,7 +43,7 @@ void VistaOpciones::actualizar(Juego& juego) {
 }
 
 void VistaOpciones::dibujar(sf::RenderWindow& ventana) {
-    ventana.clear(sf::Color::Black);
+    ventana.clear();
+    ventana.draw(spriteFondo);
     ventana.draw(texto);
 }
-

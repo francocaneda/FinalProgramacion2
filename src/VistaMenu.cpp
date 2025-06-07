@@ -8,6 +8,17 @@ VistaMenu::VistaMenu() {
         std::cerr << "Error cargando la fuente arial.ttf\n";
     }
 
+    if (!texturaFondo.loadFromFile("assets/fondoMenu.png")) {
+        std::cerr << "Error cargando fondoMenu.png\n";
+    }
+    spriteFondo.setTexture(texturaFondo);
+
+    // Ajustar tamaño a 1280x720
+    sf::Vector2u textureSize = texturaFondo.getSize();
+    float scaleX = 1280.0f / textureSize.x;
+    float scaleY = 720.0f / textureSize.y;
+    spriteFondo.setScale(scaleX, scaleY);
+
     std::vector<std::string> textos = { "Play", "Opciones", "Salir" };
 
     for (size_t i = 0; i < textos.size(); ++i) {
@@ -37,7 +48,7 @@ void VistaMenu::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                 }
             }
             else if (event.key.code == sf::Keyboard::Down) {
-                if (seleccionActual < opciones.size() - 1) {
+                if (seleccionActual < static_cast<int>(opciones.size()) - 1) {
                     seleccionActual++;
                     actualizarColores();
                 }
@@ -58,11 +69,13 @@ void VistaMenu::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
 }
 
 void VistaMenu::actualizar(Juego& juego) {
-    // No hace nada por ahora
+    // Nada por ahora
 }
 
 void VistaMenu::dibujar(sf::RenderWindow& ventana) {
-    ventana.clear(sf::Color::Blue);
+    ventana.clear();
+
+    ventana.draw(spriteFondo);
 
     for (const auto& opcion : opciones) {
         ventana.draw(opcion);
@@ -71,7 +84,7 @@ void VistaMenu::dibujar(sf::RenderWindow& ventana) {
 
 void VistaMenu::actualizarColores() {
     for (size_t i = 0; i < opciones.size(); ++i) {
-        if (i == seleccionActual) {
+        if (static_cast<int>(i) == seleccionActual) {
             opciones[i].setFillColor(sf::Color::Yellow);
         } else {
             opciones[i].setFillColor(sf::Color::White);

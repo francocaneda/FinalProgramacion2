@@ -1,40 +1,40 @@
 #include "VistaJuego.h"
 #include "VistaMuerte.h"
-#include "Juego.h"
-#include <cstdlib> // para rand()
-#include <ctime>   // para time()
+#include <iostream>
+#include <algorithm>  // para std::remove_if
 
 VistaJuego::VistaJuego() {
-    srand(static_cast<unsigned int>(time(nullptr)));
-
-    if (!texturaPersonaje.loadFromFile("./assets/paloma.png")) {
-        // Manejar error
+    if (!texturaFondo.loadFromFile("assets/fondoJuego.png")) {
+        std::cerr << "Error cargando fondoJuego.png\n";
     }
+
+    spriteFondo.setTexture(texturaFondo);
+
+    sf::Vector2u textureSize = texturaFondo.getSize();
+    float scaleX = 1280.0f / textureSize.x;
+    float scaleY = 720.0f / textureSize.y;
+    spriteFondo.setScale(scaleX, scaleY);
+
+    if (!texturaPersonaje.loadFromFile("assets/paloma.png")) {
+        std::cerr << "Error cargando personaje.png\n";
+    }
+
+    if (!texturaRoca.loadFromFile("assets/roca.png")) {
+        std::cerr << "Error cargando roca.png\n";
+    }
+
+    if (!texturaEnemigo.loadFromFile("assets/enemigo.png")) {
+        std::cerr << "Error cargando enemigo.png\n";
+    }
+
     personaje = new Personaje(texturaPersonaje, 100, 500);
-
-    if (!texturaRoca.loadFromFile("./assets/roca.png")) {
-        // Manejar error
-    }
-
-    if (!texturaEnemigo.loadFromFile("./assets/enemigo.png")) {
-        // Manejar error
-    }
-
-    tiempoProximaAparicionEnemigo = 2.0f + static_cast<float>(rand()) / RAND_MAX * 3.0f;
+    tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(2.0f))); // primer spawn aleatorio entre 2 y 4 seg
 }
 
 VistaJuego::~VistaJuego() {
     delete personaje;
-
-    for (auto roca : rocas) {
-        delete roca;
-    }
-    rocas.clear();
-
-    for (auto enemigo : enemigos) {
-        delete enemigo;
-    }
-    enemigos.clear();
+    for (auto roca : rocas) delete roca;
+    for (auto enemigo : enemigos) delete enemigo;
 }
 
 void VistaJuego::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
@@ -52,68 +52,78 @@ void VistaJuego::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
 }
 
 void VistaJuego::actualizar(Juego& juego) {
-    // Movimiento lateral personaje
+    // Movimiento horizontal lento con límites
+    float velocidadHorizontal = 0.35f;
+    float nuevaPosX = personaje->getPosX();
+
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        if (personaje->getPosX() > 0) {
-            personaje->move(-0.2f);
-        }
+        nuevaPosX -= velocidadHorizontal;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        if (personaje->getPosX() + personaje->getWidth() < 1280) {
-            personaje->move(0.2f);
-        }
+        nuevaPosX += velocidadHorizontal;
     }
 
+    if (nuevaPosX < 0) nuevaPosX = 0;
+    if (nuevaPosX + personaje->getWidth() > 1280) nuevaPosX = 1280 - personaje->getWidth();
+
+    personaje->setPosX(nuevaPosX);
+
+    // Actualizar salto y demás
     personaje->actualizar();
 
-    // SPAWN ROCA
-    if (relojRoca.getElapsedTime().asSeconds() >= 2.5f) {
-        spawnRoca();
-        relojRoca.restart();
+    // Spawn de rocas con tiempo variable entre 2 y 4 segundos
+    if (clockRocas.getElapsedTime().asSeconds() > tiempoProximoSpawnRoca) {
+        float x = rand() % (1280 - 100);
+        rocas.push_back(new Roca(texturaRoca, x));
+        clockRocas.restart();
+
+        // Setear próximo spawn aleatorio entre 2 y 4 segundos
+        tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX/(2.0f)));
     }
 
-    // ACTUALIZAR ROCAS
+    // Spawn de enemigos cada 2.5 seg
+    if (clockEnemigos.getElapsedTime().asSeconds() > 2.5f) {
+        enemigos.push_back(new Enemigo(texturaEnemigo, 1280));
+        clockEnemigos.restart();
+    }
+
+    // Actualizar rocas
     for (size_t i = 0; i < rocas.size(); ++i) {
-        rocas[i]->actualizar(0.13f); // velocidad lenta de caída
-
-        if (chequearColision(personaje, rocas[i])) {
-            juego.cambiarVista(new VistaMuerte());
-            return;
-        }
-
-        if (rocas[i]->getPosY() > 720) {
-            delete rocas[i];
-            rocas.erase(rocas.begin() + i);
-            --i;
-        }
+        rocas[i]->actualizar(0.13f);
     }
 
-    // SPAWN ENEMIGO
-    if (relojEnemigo.getElapsedTime().asSeconds() >= tiempoProximaAparicionEnemigo) {
-        spawnEnemigo();
-        relojEnemigo.restart();
-        tiempoProximaAparicionEnemigo = 2.0f + static_cast<float>(rand()) / RAND_MAX * 3.0f;
-    }
-
-    // ACTUALIZAR ENEMIGOS
+    // Actualizar enemigos
     for (size_t i = 0; i < enemigos.size(); ++i) {
-        enemigos[i]->actualizar(0.25f); // velocidad horizontal
-
-        if (chequearColision(personaje, enemigos[i])) {
-            juego.cambiarVista(new VistaMuerte());
-            return;
-        }
-
-        if (enemigos[i]->getPosX() < -enemigos[i]->getGlobalBounds().width) {
-            delete enemigos[i];
-            enemigos.erase(enemigos.begin() + i);
-            --i;
-        }
+        enemigos[i]->actualizar(0.25f);
     }
+
+    // Verificar colisiones
+    verificarColisiones(juego);
+
+    // Limpiar rocas fuera de pantalla
+    rocas.erase(std::remove_if(rocas.begin(), rocas.end(),
+        [](Roca* roca) {
+            if (roca->getPosY() > 720) {
+                delete roca;
+                return true;
+            }
+            return false;
+        }), rocas.end());
+
+    // Limpiar enemigos fuera de pantalla
+    enemigos.erase(std::remove_if(enemigos.begin(), enemigos.end(),
+        [](Enemigo* enemigo) {
+            if (enemigo->getPosX() < -100) {
+                delete enemigo;
+                return true;
+            }
+            return false;
+        }), enemigos.end());
 }
 
 void VistaJuego::dibujar(sf::RenderWindow& ventana) {
-    ventana.clear(sf::Color::Black);
+    ventana.clear();
+    ventana.draw(spriteFondo);
 
     personaje->draw(ventana);
 
@@ -126,21 +136,22 @@ void VistaJuego::dibujar(sf::RenderWindow& ventana) {
     }
 }
 
-void VistaJuego::spawnRoca() {
-    float x = static_cast<float>(rand() % 1200 + 40); // evitar bordes
-    Roca* roca = new Roca(texturaRoca, x);
-    rocas.push_back(roca);
-}
+void VistaJuego::verificarColisiones(Juego& juego) {
+    sf::FloatRect boundsPersonaje = personaje->getGlobalBounds();
 
-void VistaJuego::spawnEnemigo() {
-    Enemigo* enemigo = new Enemigo(texturaEnemigo, 1280); // spawnea derecha
-    enemigos.push_back(enemigo);
-}
+    // Colisión con rocas
+    for (auto roca : rocas) {
+        if (boundsPersonaje.intersects(roca->getGlobalBounds())) {
+            juego.cambiarVista(new VistaMuerte());
+            return;
+        }
+    }
 
-bool VistaJuego::chequearColision(Personaje* personaje, Roca* roca) {
-    return personaje->getGlobalBounds().intersects(roca->getGlobalBounds());
-}
-
-bool VistaJuego::chequearColision(Personaje* personaje, Enemigo* enemigo) {
-    return personaje->getGlobalBounds().intersects(enemigo->getGlobalBounds());
+    // Colisión con enemigos
+    for (auto enemigo : enemigos) {
+        if (boundsPersonaje.intersects(enemigo->getGlobalBounds())) {
+            juego.cambiarVista(new VistaMuerte());
+            return;
+        }
+    }
 }

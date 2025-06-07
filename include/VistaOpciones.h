@@ -16,7 +16,9 @@ public:
 private:
     sf::Font font;
     sf::Text texto;
+
+    sf::Texture texturaFondo;
+    sf::Sprite spriteFondo;
 };
 
 #endif
-

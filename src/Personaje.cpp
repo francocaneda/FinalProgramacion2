@@ -14,6 +14,11 @@ void Personaje::move(float offsetX) {
     sprite.move(offsetX, 0);
 }
 
+void Personaje::setPosX(float x) {
+    sf::Vector2f pos = sprite.getPosition();
+    sprite.setPosition(x, pos.y);
+}
+
 void Personaje::saltar() {
     if (enSuelo) {
         velocidadSalto = -1;  // Indicamos que comienza la subida
