@@ -27,7 +27,7 @@ VistaJuego::VistaJuego() {
     if (!fuente.loadFromFile("assets/fonts/arial.ttf"))
         std::cerr << "Error cargando fuente arial.ttf\n";
 
-    if (!bufferMoneda.loadFromFile("assets/moneda.ogg")) // Ruta corregida
+    if (!bufferMoneda.loadFromFile("assets/moneda.ogg"))
         std::cerr << "Error cargando sonido moneda.ogg\n";
     sonidoMoneda.setBuffer(bufferMoneda);
 
@@ -93,7 +93,7 @@ void VistaJuego::actualizar(Juego& juego) {
         float y = 250 + rand() % (500 - 250);
         float tiempoActual = relojGeneral.getElapsedTime().asSeconds();
         Moneda* moneda = new Moneda(texturaMoneda, x, y, tiempoActual);
-        moneda->setScale(0.05f, 0.05f);  // Escala ajustada
+        moneda->setScale(0.05f, 0.05f);
         monedas.push_back(moneda);
         clockMonedas.restart();
         tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.0f));
@@ -115,8 +115,12 @@ void VistaJuego::actualizar(Juego& juego) {
     }), enemigos.end());
 
     float tiempoActual = relojGeneral.getElapsedTime().asSeconds();
-    monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [tiempoActual](Moneda* m) {
-        if (tiempoActual - m->getTiempoAparicion() > 2.5f) { delete m; return true; }
+    monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [this, tiempoActual](Moneda* m) {
+        if (tiempoActual - m->getTiempoAparicion() > 2.5f) {
+            delete m;
+            monedasConsecutivas = 0;  // Reinicia si no la agarró
+            return true;
+        }
         return false;
     }), monedas.end());
 }
