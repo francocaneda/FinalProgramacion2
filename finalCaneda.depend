@@ -1828,8 +1828,9 @@
 	"Juego.h"
 	<iostream>
 
-1749321940 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
+1749398123 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
 	"Personaje.h"
+	<iostream>
 
 1749322073 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vista.h
 	<SFML/Graphics.hpp>
@@ -1856,10 +1857,11 @@
 	"Enemigo.h"
 	"Vista.h"
 
-1749322109 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamuerte.h
+1749399035 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamuerte.h
 	"Vista.h"
 	"Juego.h"
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 
 1749397461 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamenu.cpp
 	"VistaMenu.h"

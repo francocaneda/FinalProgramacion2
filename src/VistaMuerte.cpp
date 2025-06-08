@@ -1,8 +1,9 @@
 #include "VistaMuerte.h"
 #include "VistaMenu.h"
+#include "VistaJuego.h"  // Asegurate de que exista si "Volver a jugar" inicia el juego
 #include <iostream>
 
-VistaMuerte::VistaMuerte() : cambioVistaSolicitado(false) {
+VistaMuerte::VistaMuerte() : seleccionActual(0), cambioVistaSolicitado(false) {
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
         std::cerr << "Error cargando la fuente arial.ttf\n";
     }
@@ -12,17 +13,35 @@ VistaMuerte::VistaMuerte() : cambioVistaSolicitado(false) {
     }
 
     spriteFondo.setTexture(texturaFondo);
-
     sf::Vector2u textureSize = texturaFondo.getSize();
     float scaleX = 1280.0f / textureSize.x;
     float scaleY = 720.0f / textureSize.y;
     spriteFondo.setScale(scaleX, scaleY);
 
-    texto.setFont(font);
-    texto.setString("GAME OVER\nPresiona ENTER para volver al menu");
-    texto.setCharacterSize(30);
-    texto.setFillColor(sf::Color::Red);
-    texto.setPosition(200, 300);
+    // Opciones
+    std::vector<std::string> textos = {
+        "Volver al Menu",
+        "Volver a Jugar",
+        "Salir"
+    };
+
+    for (size_t i = 0; i < textos.size(); ++i) {
+        sf::Text text;
+        text.setFont(font);
+        text.setString(textos[i]);
+        text.setCharacterSize(35);
+        text.setFillColor(sf::Color::White);
+        text.setPosition(400, 300 + i * 60);
+        opciones.push_back(text);
+    }
+
+    actualizarColores();
+
+    if (!bufferCambio.loadFromFile("assets/sonidoCambio.ogg")) {
+        std::cerr << "Error cargando sonidoCambio.ogg\n";
+    } else {
+        sonidoCambio.setBuffer(bufferCambio);
+    }
 }
 
 void VistaMuerte::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
@@ -33,9 +52,27 @@ void VistaMuerte::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
         }
 
         if (!cambioVistaSolicitado && event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Enter) {
+            if (event.key.code == sf::Keyboard::Up) {
+                if (seleccionActual > 0) {
+                    seleccionActual--;
+                    actualizarColores();
+                    sonidoCambio.play();
+                }
+            } else if (event.key.code == sf::Keyboard::Down) {
+                if (seleccionActual < static_cast<int>(opciones.size()) - 1) {
+                    seleccionActual++;
+                    actualizarColores();
+                    sonidoCambio.play();
+                }
+            } else if (event.key.code == sf::Keyboard::Enter) {
                 cambioVistaSolicitado = true;
-                juego.cambiarVista(new VistaMenu());
+                if (seleccionActual == 0) {
+                    juego.cambiarVista(new VistaMenu());
+                } else if (seleccionActual == 1) {
+                    juego.cambiarVista(new VistaJuego());  // Asegurate de tener esta clase
+                } else if (seleccionActual == 2) {
+                    ventana.close();
+                }
             }
         }
     }
@@ -48,5 +85,17 @@ void VistaMuerte::actualizar(Juego& juego) {
 void VistaMuerte::dibujar(sf::RenderWindow& ventana) {
     ventana.clear();
     ventana.draw(spriteFondo);
-    ventana.draw(texto);
+    for (const auto& opcion : opciones) {
+        ventana.draw(opcion);
+    }
+}
+
+void VistaMuerte::actualizarColores() {
+    for (size_t i = 0; i < opciones.size(); ++i) {
+        if (static_cast<int>(i) == seleccionActual) {
+            opciones[i].setFillColor(sf::Color::Yellow);
+        } else {
+            opciones[i].setFillColor(sf::Color::White);
+        }
+    }
 }
