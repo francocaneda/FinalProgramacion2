@@ -1,10 +1,11 @@
 #ifndef VISTAOPCIONES_H
 #define VISTAOPCIONES_H
 
-#include <SFML/Graphics.hpp>
-#include <vector>
 #include "Vista.h"
 #include "Juego.h"
+#include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
+#include <vector>
 
 class VistaOpciones : public Vista {
 public:
@@ -22,13 +23,14 @@ private:
     std::vector<sf::Text> opciones;
     int seleccionActual = 0;
 
-    // Estados de las opciones
     bool musicaActiva = true;
     bool mostrarControles = false;
-    bool mostrarCreditos = false;
+
+    sf::SoundBuffer bufferCambio;
+    sf::Sound sonidoCambio;
 
     void actualizarTextos();
     void actualizarColores();
 };
 
-#endif // VISTAOPCIONES_H
+#endif

@@ -4,6 +4,7 @@
 #include "Vista.h"
 #include "Juego.h"
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 
 class VistaMenu : public Vista {
@@ -16,11 +17,14 @@ public:
 
 private:
     sf::Font font;
+    sf::Texture texturaFondo;
+    sf::Sprite spriteFondo;
+
     std::vector<sf::Text> opciones;
     int seleccionActual = 0;
 
-    sf::Texture texturaFondo;
-    sf::Sprite spriteFondo;
+    sf::SoundBuffer bufferCambio;
+    sf::Sound sonidoCambio;
 
     void actualizarColores();
 };

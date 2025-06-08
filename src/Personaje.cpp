@@ -1,9 +1,17 @@
 #include "Personaje.h"
+#include <iostream>
 
 Personaje::Personaje(sf::Texture& texture, float x, float y) {
     sprite.setTexture(texture);
     sprite.setPosition(x, y);
     sprite.setScale(0.25f, 0.25f);
+
+    // Cargar sonido de salto
+    if (!bufferSalto.loadFromFile("assets/salto.ogg")) {
+        std::cerr << "Error cargando salto.ogg\n";
+    } else {
+        sonidoSalto.setBuffer(bufferSalto);
+    }
 }
 
 void Personaje::draw(sf::RenderWindow& window) {
@@ -23,6 +31,9 @@ void Personaje::saltar() {
     if (enSuelo) {
         velocidadSalto = -1;  // Indicamos que comienza la subida
         enSuelo = false;
+
+        // Reproducir sonido de salto
+        sonidoSalto.play();
     }
 }
 

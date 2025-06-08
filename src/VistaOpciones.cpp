@@ -11,6 +11,12 @@ VistaOpciones::VistaOpciones() {
         std::cerr << "Error cargando fondoOpciones.png\n";
     }
 
+    if (!bufferCambio.loadFromFile("assets/sonidoCambio.ogg")) {
+        std::cerr << "Error cargando sonidoCambio.ogg\n";
+    } else {
+        sonidoCambio.setBuffer(bufferCambio);
+    }
+
     spriteFondo.setTexture(texturaFondo);
 
     sf::Vector2u textureSize = texturaFondo.getSize();
@@ -18,7 +24,6 @@ VistaOpciones::VistaOpciones() {
     float scaleY = 720.0f / textureSize.y;
     spriteFondo.setScale(scaleX, scaleY);
 
-    // Opciones iniciales
     std::vector<std::string> textos = {
         "Musica: ON",
         "Mostrar controles",
@@ -50,15 +55,17 @@ void VistaOpciones::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                 if (seleccionActual > 0) {
                     seleccionActual--;
                     actualizarColores();
+                    sonidoCambio.play();
                 }
             } else if (event.key.code == sf::Keyboard::Down) {
                 if (seleccionActual < static_cast<int>(opciones.size()) - 1) {
                     seleccionActual++;
                     actualizarColores();
+                    sonidoCambio.play();
                 }
             } else if (event.key.code == sf::Keyboard::Enter) {
                 if (seleccionActual == 0) {
-                    // Alternar musica ON/OFF
+                    // Alternar música ON/OFF
                     musicaActiva = !musicaActiva;
                     actualizarTextos();
                 } else if (seleccionActual == 1) {
@@ -66,10 +73,10 @@ void VistaOpciones::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                     mostrarControles = !mostrarControles;
                     std::cout << "Mostrar controles: " << (mostrarControles ? "SI" : "NO") << std::endl;
                 } else if (seleccionActual == 2) {
-                    // Mostrar créditos (por ahora en consola)
+                    // Mostrar créditos
                     std::cout << "Juego creado por TuNombre - 2025" << std::endl;
                 } else if (seleccionActual == 3) {
-                    // Volver al menu
+                    // Volver al menú
                     juego.cambiarVista(new VistaMenu());
                 }
             }
@@ -83,9 +90,7 @@ void VistaOpciones::actualizar(Juego& juego) {
 
 void VistaOpciones::dibujar(sf::RenderWindow& ventana) {
     ventana.clear();
-
     ventana.draw(spriteFondo);
-
     for (const auto& opcion : opciones) {
         ventana.draw(opcion);
     }
@@ -93,7 +98,6 @@ void VistaOpciones::dibujar(sf::RenderWindow& ventana) {
 
 void VistaOpciones::actualizarTextos() {
     opciones[0].setString("Musica: " + std::string(musicaActiva ? "ON" : "OFF"));
-    // Si quisieras también podés cambiar texto de controles aquí si te interesa.
 }
 
 void VistaOpciones::actualizarColores() {

@@ -11,32 +11,31 @@ VistaMenu::VistaMenu() {
     if (!texturaFondo.loadFromFile("assets/fondoMenu.png")) {
         std::cerr << "Error cargando fondoMenu.png\n";
     }
-    spriteFondo.setTexture(texturaFondo);
 
-    // Ajustar tamaño a 1280x720
+    if (!bufferCambio.loadFromFile("assets/sonidoCambio.ogg")) {
+        std::cerr << "Error cargando sonidoCambio.ogg\n";
+    } else {
+        sonidoCambio.setBuffer(bufferCambio);
+    }
+
+    spriteFondo.setTexture(texturaFondo);
     sf::Vector2u textureSize = texturaFondo.getSize();
     float scaleX = 1280.0f / textureSize.x;
     float scaleY = 720.0f / textureSize.y;
     spriteFondo.setScale(scaleX, scaleY);
 
-    std::vector<std::string> textos = { "Play", "Opciones", "Salir" };
+    std::vector<std::string> textos = {
+        "Jugar",
+        "Opciones",
+        "Salir"
+    };
 
     for (size_t i = 0; i < textos.size(); ++i) {
         sf::Text text;
         text.setFont(font);
         text.setString(textos[i]);
-
-        // Si es "Play", lo hacemos más grande
-        if (i == 0) {
-            text.setCharacterSize(50);  // Play más grande
-        } else {
-            text.setCharacterSize(40);  // Resto normal
-        }
-
-        // Usamos espaciado un poco más amplio
-        float espaciadoBase = 70;
-        text.setPosition(250, 250 + i * espaciadoBase);
-
+        text.setCharacterSize(40);
+        text.setPosition(250, 250 + i * 60);
         opciones.push_back(text);
     }
 
@@ -55,22 +54,20 @@ void VistaMenu::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                 if (seleccionActual > 0) {
                     seleccionActual--;
                     actualizarColores();
+                    sonidoCambio.play();
                 }
-            }
-            else if (event.key.code == sf::Keyboard::Down) {
+            } else if (event.key.code == sf::Keyboard::Down) {
                 if (seleccionActual < static_cast<int>(opciones.size()) - 1) {
                     seleccionActual++;
                     actualizarColores();
+                    sonidoCambio.play();
                 }
-            }
-            else if (event.key.code == sf::Keyboard::Enter) {
-                if (seleccionActual == 0) { // Play
+            } else if (event.key.code == sf::Keyboard::Enter) {
+                if (seleccionActual == 0) {
                     juego.cambiarVista(new VistaJuego());
-                }
-                else if (seleccionActual == 1) { // Opciones
+                } else if (seleccionActual == 1) {
                     juego.cambiarVista(new VistaOpciones());
-                }
-                else if (seleccionActual == 2) { // Salir
+                } else if (seleccionActual == 2) {
                     ventana.close();
                 }
             }
@@ -79,14 +76,12 @@ void VistaMenu::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
 }
 
 void VistaMenu::actualizar(Juego& juego) {
-    // Nada por ahora
+    // No hace nada por ahora
 }
 
 void VistaMenu::dibujar(sf::RenderWindow& ventana) {
     ventana.clear();
-
     ventana.draw(spriteFondo);
-
     for (const auto& opcion : opciones) {
         ventana.draw(opcion);
     }

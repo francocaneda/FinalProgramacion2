@@ -2,6 +2,7 @@
 #define PERSONAJE_H
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 
 class Personaje {
 public:
@@ -22,6 +23,9 @@ private:
 
     bool enSuelo = true;
     float velocidadSalto = 0.0f;
+
+    sf::SoundBuffer bufferSalto;
+    sf::Sound sonidoSalto;
 
     // Parámetros del salto ajustados para 1280x720
     float alturaMaximaSalto = 200.f;

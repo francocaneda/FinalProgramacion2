@@ -1397,8 +1397,9 @@
 	"Juego.h"
 	"VistaMenu.h"
 
-1749310976 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
+1749396664 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	"Vista.h"
 
 1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\graphics.hpp
@@ -1819,31 +1820,34 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1749317124 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personaje.h
+1749398002 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personaje.h
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 
-1749311016 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\juego.cpp
+1749396686 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\juego.cpp
 	"Juego.h"
+	<iostream>
 
-1749317131 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
+1749321940 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
 	"Personaje.h"
 
-1749310976 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vista.h
+1749322073 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vista.h
 	<SFML/Graphics.hpp>
 
-1749315318 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamenu.h
+1749396930 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamenu.h
 	"Vista.h"
 	"Juego.h"
 	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 	<vector>
 
-1749318171 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
+1749321978 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
 	"VistaJuego.h"
 	"VistaMuerte.h"
 	<iostream>
 	<algorithm>
 
-1749317026 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
+1749322083 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
 	<SFML/Graphics.hpp>
 	<vector>
 	"Juego.h"
@@ -1852,43 +1856,148 @@
 	"Enemigo.h"
 	"Vista.h"
 
-1749315558 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamuerte.h
+1749322109 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamuerte.h
 	"Vista.h"
 	"Juego.h"
 	<SFML/Graphics.hpp>
 
-1749317491 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamenu.cpp
+1749397461 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamenu.cpp
 	"VistaMenu.h"
 	"VistaJuego.h"
 	"VistaOpciones.h"
 	<iostream>
 
-1749315581 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamuerte.cpp
+1749322214 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamuerte.cpp
 	"VistaMuerte.h"
 	"VistaMenu.h"
 	<iostream>
 
-1749311528 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\roca.h
+1749322063 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\roca.h
 	<SFML/Graphics.hpp>
 
-1749311341 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\roca.cpp
+1749321952 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\roca.cpp
 	"Roca.h"
 
-1749318685 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistaopciones.h
-	<SFML/Graphics.hpp>
-	<vector>
+1749397157 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistaopciones.h
 	"Vista.h"
 	"Juego.h"
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
+	<vector>
 
-1749318848 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistaopciones.cpp
+1749397398 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistaopciones.cpp
 	"VistaOpciones.h"
 	"VistaMenu.h"
 	<iostream>
 
-1749318351 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\enemigo.h
+1749322036 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\enemigo.h
 	<SFML/Graphics.hpp>
 
-1749318364 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp
+1749321911 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp
 	"Enemigo.h"
 	<cstdlib>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio.hpp
+	<SFML/System.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/Audio/Listener.hpp>
+	<SFML/Audio/Music.hpp>
+	<SFML/Audio/OutputSoundFile.hpp>
+	<SFML/Audio/Sound.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundBufferRecorder.hpp>
+	<SFML/Audio/SoundFileFactory.hpp>
+	<SFML/Audio/SoundFileReader.hpp>
+	<SFML/Audio/SoundFileWriter.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/Audio/SoundStream.hpp>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\inputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<cstddef>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\export.hpp
+	<SFML/Config.hpp>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\listener.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/Vector3.hpp>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\music.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundStream.hpp>
+	<SFML/Audio/InputSoundFile.hpp>
+	<SFML/System/Mutex.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundstream.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<SFML/System/Mutex.hpp>
+	<cstdlib>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundsource.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Vector3.hpp>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\alresource.hpp
+	<SFML/Audio/Export.hpp>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\outputsoundfile.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/System/NonCopyable.hpp>
+	<string>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\sound.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundSource.hpp>
+	<SFML/System/Time.hpp>
+	<cstdlib>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundbuffer.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Time.hpp>
+	<string>
+	<vector>
+	<set>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundbufferrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/SoundBuffer.hpp>
+	<SFML/Audio/SoundRecorder.hpp>
+	<vector>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundrecorder.hpp
+	<SFML/Audio/Export.hpp>
+	<SFML/Audio/AlResource.hpp>
+	<SFML/System/Thread.hpp>
+	<SFML/System/Time.hpp>
+	<vector>
+	<string>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundfilefactory.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+	<vector>
+	<SFML/Audio/SoundFileFactory.inl>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundfilefactory.inl
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundfilereader.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
+
+1749174413 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\sfml\include\sfml\audio\soundfilewriter.hpp
+	<SFML/Audio/Export.hpp>
+	<string>
 
