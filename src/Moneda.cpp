@@ -1,10 +1,10 @@
 #include "Moneda.h"
 
-Moneda::Moneda(const sf::Texture& textura, float x, float y, float tiempo) {
+Moneda::Moneda(const sf::Texture& textura, float x, float y, float tiempoAparicion)
+    : tiempoAparicion(tiempoAparicion)
+{
     sprite.setTexture(textura);
     sprite.setPosition(x, y);
-    tiempoAparicion = tiempo;
-    sprite.setScale(0.05f, 0.05f);
 }
 
 void Moneda::draw(sf::RenderWindow& ventana) {
@@ -17,4 +17,8 @@ sf::FloatRect Moneda::getGlobalBounds() const {
 
 float Moneda::getTiempoAparicion() const {
     return tiempoAparicion;
+}
+
+void Moneda::setScale(float scaleX, float scaleY) {
+    sprite.setScale(scaleX, scaleY);
 }

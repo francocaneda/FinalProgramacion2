@@ -32,10 +32,16 @@ VistaJuego::VistaJuego() {
         std::cerr << "Error cargando moneda.png\n";
     }
 
+    // Cargar sonido moneda
+    if (!bufferMoneda.loadFromFile("assets/moneda.ogg")) {
+        std::cerr << "Error cargando moneda.ogg\n";
+    }
+    sonidoMoneda.setBuffer(bufferMoneda);
+
     personaje = new Personaje(texturaPersonaje, 100, 500);
 
     tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
-    tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 5.0f));
+    tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.0f));
 
     relojGeneral.restart();
 }
@@ -92,12 +98,16 @@ void VistaJuego::actualizar(Juego& juego) {
         clockEnemigos.restart();
     }
 
-    // Spawn de monedas con posiciones aleatorias en X: 50-1200, Y: 250-500
+    // Spawn de monedas
     if (clockMonedas.getElapsedTime().asSeconds() > tiempoProximoSpawnMoneda) {
-        float x = 50 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (1100 - 50)));
-        float y = 250 + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / (500 - 250)));
+        float x = 50 + rand() % (1100 - 50);
+        float y = 250 + rand() % (500 - 250);
         float tiempoActual = relojGeneral.getElapsedTime().asSeconds();
-        monedas.push_back(new Moneda(texturaMoneda, x, y, tiempoActual));
+
+        Moneda* nuevaMoneda = new Moneda(texturaMoneda, x, y, tiempoActual);
+        nuevaMoneda->setScale(0.05f, 0.05f);
+        monedas.push_back(nuevaMoneda);
+
         clockMonedas.restart();
         tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.0f));
     }
@@ -187,8 +197,9 @@ void VistaJuego::verificarColisiones(Juego& juego) {
 
     // Colisión con monedas
     monedas.erase(std::remove_if(monedas.begin(), monedas.end(),
-        [boundsPersonaje](Moneda* moneda) {
+        [boundsPersonaje, this](Moneda* moneda) {
             if (boundsPersonaje.intersects(moneda->getGlobalBounds())) {
+                sonidoMoneda.play();
                 delete moneda;
                 return true;
             }

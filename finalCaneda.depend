@@ -1850,7 +1850,7 @@
 	<algorithm>
 	<cstdlib>
 
-1749419106 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
+1749420444 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
 	"Vista.h"
 	"Juego.h"
 	"Personaje.h"
@@ -2018,9 +2018,9 @@
 	"Juego.h"
 	<SFML/Graphics.hpp>
 
-1749419858 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\moneda.cpp
+1749420183 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\moneda.cpp
 	"Moneda.h"
 
-1749419525 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\moneda.h
+1749420825 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\moneda.h
 	<SFML/Graphics.hpp>
 

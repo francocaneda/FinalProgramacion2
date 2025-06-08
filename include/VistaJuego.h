@@ -44,6 +44,8 @@ public:
 
 private:
     void verificarColisiones(Juego& juego);
+    sf::SoundBuffer bufferMoneda;
+    sf::Sound sonidoMoneda;
 };
 
 #endif // VISTAJUEGO_H
