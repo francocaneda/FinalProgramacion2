@@ -1,9 +1,11 @@
 #include "VistaMuerte.h"
 #include "VistaMenu.h"
-#include "VistaJuego.h"  // Asegúrate de que exista
+#include "VistaJuego.h"
 #include <iostream>
 
-VistaMuerte::VistaMuerte() : seleccionActual(0) {
+VistaMuerte::VistaMuerte(int puntajeFinal)
+    : seleccionActual(0), puntaje(puntajeFinal)  // Guardamos el puntaje
+{
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
         std::cerr << "Error cargando la fuente arial.ttf\n";
     }
@@ -34,6 +36,13 @@ VistaMuerte::VistaMuerte() : seleccionActual(0) {
         text.setPosition(130, 420 + i * 60);
         opciones.push_back(text);
     }
+
+    // Texto para mostrar el puntaje
+    textoPuntaje.setFont(font);
+    textoPuntaje.setCharacterSize(30);
+    textoPuntaje.setFillColor(sf::Color::White);
+    textoPuntaje.setPosition(930.f, 490.f);
+    textoPuntaje.setString("Puntaje final: " + std::to_string(puntaje));
 
     actualizarColores();
 
@@ -86,6 +95,10 @@ void VistaMuerte::actualizar(Juego& juego) {
 void VistaMuerte::dibujar(sf::RenderWindow& ventana) {
     ventana.clear();
     ventana.draw(spriteFondo);
+
+    // Dibuja el texto del puntaje
+    ventana.draw(textoPuntaje);
+
     for (const auto& opcion : opciones) {
         ventana.draw(opcion);
     }

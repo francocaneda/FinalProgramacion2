@@ -5,10 +5,12 @@
 #include "Juego.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <vector>
+#include <string>
 
 class VistaMuerte : public Vista {
 public:
-    VistaMuerte();
+    VistaMuerte(int puntajeFinal);  // <- Constructor modificado para recibir el puntaje
 
     void manejarEventos(sf::RenderWindow& ventana, Juego& juego) override;
     void actualizar(Juego& juego) override;
@@ -22,12 +24,15 @@ private:
     std::vector<sf::Text> opciones;
     int seleccionActual = 0;
 
+    sf::Text textoPuntaje; // <- Texto para mostrar el puntaje
+    int puntaje;           // <- Almacena el puntaje recibido
+
     sf::SoundBuffer bufferCambio;
     sf::Sound sonidoCambio;
 
     bool cambioVistaSolicitado;
 
-    void actualizarColores();  // <--- Declara esta función
+    void actualizarColores();
 };
 
 #endif

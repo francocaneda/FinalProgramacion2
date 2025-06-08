@@ -18,6 +18,8 @@ public:
     void pausarMusica();
     void reproducirMusica();
     bool musicaActiva() const;
+    void setPuntajeFinal(int puntos) { puntajeFinal = puntos; }
+    int getPuntajeFinal() const { return puntajeFinal; }
 
 private:
     sf::RenderWindow ventana;
@@ -26,6 +28,7 @@ private:
 
     sf::Music musicaFondo;
     bool musicaEnReproduccion;
+    int puntajeFinal;
 };
 
 #endif

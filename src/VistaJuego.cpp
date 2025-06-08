@@ -140,14 +140,16 @@ void VistaJuego::verificarColisiones(Juego& juego) {
 
     for (auto r : rocas) {
         if (boundsPersonaje.intersects(r->getGlobalBounds())) {
-            juego.cambiarVista(new VistaMuerte());
+            juego.setPuntajeFinal(puntos);
+            juego.solicitarCambioVista(new VistaMuerte(puntos));
             return;
         }
     }
 
     for (auto e : enemigos) {
         if (boundsPersonaje.intersects(e->getGlobalBounds())) {
-            juego.cambiarVista(new VistaMuerte());
+            juego.setPuntajeFinal(puntos);
+            juego.solicitarCambioVista(new VistaMuerte(puntos));
             return;
         }
     }
