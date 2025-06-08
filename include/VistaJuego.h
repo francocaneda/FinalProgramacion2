@@ -1,23 +1,17 @@
 #ifndef VISTAJUEGO_H
 #define VISTAJUEGO_H
 
-#include <SFML/Graphics.hpp>
-#include <vector>
+#include "Vista.h"
 #include "Juego.h"
 #include "Personaje.h"
 #include "Roca.h"
 #include "Enemigo.h"
-#include "Vista.h"   // importante incluir Vista.h para heredar
+#include "Moneda.h"
+#include <vector>
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
 
-class VistaJuego : public Vista {   // <---- HERENCIA aquí
-public:
-    VistaJuego();
-    ~VistaJuego();
-
-    void manejarEventos(sf::RenderWindow& ventana, Juego& juego) override;
-    void actualizar(Juego& juego) override;
-    void dibujar(sf::RenderWindow& ventana) override;
-
+class VistaJuego : public Vista {
 private:
     sf::Texture texturaFondo;
     sf::Sprite spriteFondo;
@@ -25,16 +19,30 @@ private:
     sf::Texture texturaPersonaje;
     sf::Texture texturaRoca;
     sf::Texture texturaEnemigo;
+    sf::Texture texturaMoneda;
 
     Personaje* personaje;
     std::vector<Roca*> rocas;
     std::vector<Enemigo*> enemigos;
+    std::vector<Moneda*> monedas;
 
     sf::Clock clockRocas;
     sf::Clock clockEnemigos;
+    sf::Clock clockMonedas;
+    sf::Clock relojGeneral;
 
     float tiempoProximoSpawnRoca;
+    float tiempoProximoSpawnMoneda;
 
+public:
+    VistaJuego();
+    virtual ~VistaJuego();
+
+    virtual void manejarEventos(sf::RenderWindow& ventana, Juego& juego);
+    virtual void actualizar(Juego& juego);
+    virtual void dibujar(sf::RenderWindow& ventana);
+
+private:
     void verificarColisiones(Juego& juego);
 };
 

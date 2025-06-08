@@ -44,9 +44,11 @@
 		</Compiler>
 		<Unit filename="include/Enemigo.h" />
 		<Unit filename="include/Juego.h" />
+		<Unit filename="include/Moneda.h" />
 		<Unit filename="include/Personaje.h" />
 		<Unit filename="include/Roca.h" />
 		<Unit filename="include/Vista.h" />
+		<Unit filename="include/VistaInstrucciones.h" />
 		<Unit filename="include/VistaJuego.h" />
 		<Unit filename="include/VistaMenu.h" />
 		<Unit filename="include/VistaMuerte.h" />
@@ -54,8 +56,10 @@
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Enemigo.cpp" />
 		<Unit filename="src/Juego.cpp" />
+		<Unit filename="src/Moneda.cpp" />
 		<Unit filename="src/Personaje.cpp" />
 		<Unit filename="src/Roca.cpp" />
+		<Unit filename="src/VistaInstrucciones.cpp" />
 		<Unit filename="src/VistaJuego.cpp" />
 		<Unit filename="src/VistaMenu.cpp" />
 		<Unit filename="src/VistaMuerte.cpp" />

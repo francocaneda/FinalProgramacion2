@@ -27,7 +27,7 @@ VistaInstrucciones::VistaInstrucciones() : seleccionActual(0) {
     );
     textoInstrucciones.setCharacterSize(30);
     textoInstrucciones.setFillColor(sf::Color::White);
-    textoInstrucciones.setPosition(100, 160);
+    textoInstrucciones.setPosition(100, 200);
 
     textoVolver.setFont(font);
     textoVolver.setString("Volver a Opciones");

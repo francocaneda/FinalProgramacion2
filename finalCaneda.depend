@@ -1842,20 +1842,24 @@
 	<SFML/Audio.hpp>
 	<vector>
 
-1749321978 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
+1749419604 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
 	"VistaJuego.h"
 	"VistaMuerte.h"
+	"Moneda.h"
 	<iostream>
 	<algorithm>
+	<cstdlib>
 
-1749322083 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
-	<SFML/Graphics.hpp>
-	<vector>
+1749419106 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
+	"Vista.h"
 	"Juego.h"
 	"Personaje.h"
 	"Roca.h"
 	"Enemigo.h"
-	"Vista.h"
+	"Moneda.h"
+	<vector>
+	<SFML/Graphics.hpp>
+	<SFML/System.hpp>
 
 1749399035 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamuerte.h
 	"Vista.h"
@@ -2004,7 +2008,7 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1749401954 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistainstrucciones.cpp
+1749418157 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistainstrucciones.cpp
 	"VistaInstrucciones.h"
 	"VistaOpciones.h"
 	<iostream>
@@ -2012,5 +2016,11 @@
 1749400743 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistainstrucciones.h
 	"Vista.h"
 	"Juego.h"
+	<SFML/Graphics.hpp>
+
+1749419858 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\moneda.cpp
+	"Moneda.h"
+
+1749419525 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\moneda.h
 	<SFML/Graphics.hpp>
 
