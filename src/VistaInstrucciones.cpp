@@ -23,7 +23,9 @@ VistaInstrucciones::VistaInstrucciones() : seleccionActual(0) {
         "- Usa las FLECHAS izquierda/derecha para moverte.\n"
         "- Usa ESPACIO para saltar.\n"
         "- Evita las bombas que caen y los enemigos.\n"
-        "- Sobrevive el mayor tiempo posible."
+        "- Recoge la mayor cantidad de monedas.\n"
+        "- 1 moneda = 10 puntos.\n"
+        "- 3 monedas consecutivas = bonus 30 pts."
     );
     textoInstrucciones.setCharacterSize(30);
     textoInstrucciones.setFillColor(sf::Color::White);
@@ -32,7 +34,7 @@ VistaInstrucciones::VistaInstrucciones() : seleccionActual(0) {
     textoVolver.setFont(font);
     textoVolver.setString("Volver a Opciones");
     textoVolver.setCharacterSize(30);
-    textoVolver.setPosition(100, 500);
+    textoVolver.setPosition(100, 550);
 
     if (!bufferCambio.loadFromFile("assets/sonidoCambio.ogg")) {
         std::cerr << "Error cargando sonidoCambio.ogg\n";

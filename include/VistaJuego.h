@@ -33,6 +33,10 @@ private:
 
     float tiempoProximoSpawnRoca;
     float tiempoProximoSpawnMoneda;
+    int puntos = 0;
+    int monedasConsecutivas;
+    sf::Font fuente;
+    sf::Text textoPuntos;
 
 public:
     VistaJuego();

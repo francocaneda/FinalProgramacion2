@@ -3,12 +3,11 @@
 #include "Moneda.h"
 #include <iostream>
 #include <algorithm>
-#include <cstdlib>  // Para rand()
+#include <cstdlib>
 
 VistaJuego::VistaJuego() {
-    if (!texturaFondo.loadFromFile("assets/fondoJuego.png")) {
+    if (!texturaFondo.loadFromFile("assets/fondoJuego.png"))
         std::cerr << "Error cargando fondoJuego.png\n";
-    }
 
     spriteFondo.setTexture(texturaFondo);
     sf::Vector2u textureSize = texturaFondo.getSize();
@@ -16,54 +15,51 @@ VistaJuego::VistaJuego() {
     float scaleY = 720.0f / textureSize.y;
     spriteFondo.setScale(scaleX, scaleY);
 
-    if (!texturaPersonaje.loadFromFile("assets/paloma.png")) {
+    if (!texturaPersonaje.loadFromFile("assets/paloma.png"))
         std::cerr << "Error cargando paloma.png\n";
-    }
-
-    if (!texturaRoca.loadFromFile("assets/roca.png")) {
+    if (!texturaRoca.loadFromFile("assets/roca.png"))
         std::cerr << "Error cargando roca.png\n";
-    }
-
-    if (!texturaEnemigo.loadFromFile("assets/enemigo.png")) {
+    if (!texturaEnemigo.loadFromFile("assets/enemigo.png"))
         std::cerr << "Error cargando enemigo.png\n";
-    }
-
-    if (!texturaMoneda.loadFromFile("assets/moneda.png")) {
+    if (!texturaMoneda.loadFromFile("assets/moneda.png"))
         std::cerr << "Error cargando moneda.png\n";
-    }
 
-    // Cargar sonido moneda
-    if (!bufferMoneda.loadFromFile("assets/moneda.ogg")) {
-        std::cerr << "Error cargando moneda.ogg\n";
-    }
+    if (!fuente.loadFromFile("assets/fonts/arial.ttf"))
+        std::cerr << "Error cargando fuente arial.ttf\n";
+
+    if (!bufferMoneda.loadFromFile("assets/moneda.ogg")) // Ruta corregida
+        std::cerr << "Error cargando sonido moneda.ogg\n";
     sonidoMoneda.setBuffer(bufferMoneda);
 
     personaje = new Personaje(texturaPersonaje, 100, 500);
 
     tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
     tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.0f));
-
     relojGeneral.restart();
+
+    puntos = 0;
+    monedasConsecutivas = 0;
+
+    textoPuntos.setFont(fuente);
+    textoPuntos.setCharacterSize(30);
+    textoPuntos.setFillColor(sf::Color::White);
+    textoPuntos.setPosition(15.f, 15.f);
+    textoPuntos.setString("Puntos: 0");
 }
 
 VistaJuego::~VistaJuego() {
     delete personaje;
-    for (auto roca : rocas) delete roca;
-    for (auto enemigo : enemigos) delete enemigo;
-    for (auto moneda : monedas) delete moneda;
+    for (auto r : rocas) delete r;
+    for (auto e : enemigos) delete e;
+    for (auto m : monedas) delete m;
 }
 
 void VistaJuego::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
     sf::Event event;
     while (ventana.pollEvent(event)) {
-        if (event.type == sf::Event::Closed) {
-            ventana.close();
-        }
-        if (event.type == sf::Event::KeyPressed) {
-            if (event.key.code == sf::Keyboard::Space) {
-                personaje->saltar();
-            }
-        }
+        if (event.type == sf::Event::Closed) ventana.close();
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
+            personaje->saltar();
     }
 }
 
@@ -71,20 +67,15 @@ void VistaJuego::actualizar(Juego& juego) {
     float velocidadHorizontal = 0.35f;
     float nuevaPosX = personaje->getPosX();
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        nuevaPosX -= velocidadHorizontal;
-    }
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        nuevaPosX += velocidadHorizontal;
-    }
-
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) nuevaPosX -= velocidadHorizontal;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) nuevaPosX += velocidadHorizontal;
     if (nuevaPosX < 0) nuevaPosX = 0;
     if (nuevaPosX + personaje->getWidth() > 1280) nuevaPosX = 1280 - personaje->getWidth();
 
     personaje->setPosX(nuevaPosX);
     personaje->actualizar();
 
-    // Spawn de rocas
+    // Spawns
     if (clockRocas.getElapsedTime().asSeconds() > tiempoProximoSpawnRoca) {
         float x = rand() % (1280 - 100);
         rocas.push_back(new Roca(texturaRoca, x));
@@ -92,117 +83,84 @@ void VistaJuego::actualizar(Juego& juego) {
         tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
     }
 
-    // Spawn de enemigos
     if (clockEnemigos.getElapsedTime().asSeconds() > 2.5f) {
         enemigos.push_back(new Enemigo(texturaEnemigo, 1280));
         clockEnemigos.restart();
     }
 
-    // Spawn de monedas
     if (clockMonedas.getElapsedTime().asSeconds() > tiempoProximoSpawnMoneda) {
         float x = 50 + rand() % (1100 - 50);
         float y = 250 + rand() % (500 - 250);
         float tiempoActual = relojGeneral.getElapsedTime().asSeconds();
-
-        Moneda* nuevaMoneda = new Moneda(texturaMoneda, x, y, tiempoActual);
-        nuevaMoneda->setScale(0.05f, 0.05f);
-        monedas.push_back(nuevaMoneda);
-
+        Moneda* moneda = new Moneda(texturaMoneda, x, y, tiempoActual);
+        moneda->setScale(0.05f, 0.05f);  // Escala ajustada
+        monedas.push_back(moneda);
         clockMonedas.restart();
         tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.0f));
     }
 
-    // Actualizar rocas
-    for (auto roca : rocas) {
-        roca->actualizar(0.13f);
-    }
+    for (auto r : rocas) r->actualizar(0.13f);
+    for (auto e : enemigos) e->actualizar();
 
-    // Actualizar enemigos
-    for (auto enemigo : enemigos) {
-        enemigo->actualizar();
-    }
-
-    // Verificar colisiones
     verificarColisiones(juego);
 
-    // Limpiar rocas fuera de pantalla
-    rocas.erase(std::remove_if(rocas.begin(), rocas.end(),
-        [](Roca* roca) {
-            if (roca->getPosY() > 720) {
-                delete roca;
-                return true;
-            }
-            return false;
-        }), rocas.end());
+    rocas.erase(std::remove_if(rocas.begin(), rocas.end(), [](Roca* r) {
+        if (r->getPosY() > 720) { delete r; return true; }
+        return false;
+    }), rocas.end());
 
-    // Limpiar enemigos fuera de pantalla
-    enemigos.erase(std::remove_if(enemigos.begin(), enemigos.end(),
-        [](Enemigo* enemigo) {
-            if (enemigo->getPosX() < -100) {
-                delete enemigo;
-                return true;
-            }
-            return false;
-        }), enemigos.end());
+    enemigos.erase(std::remove_if(enemigos.begin(), enemigos.end(), [](Enemigo* e) {
+        if (e->getPosX() < -100) { delete e; return true; }
+        return false;
+    }), enemigos.end());
 
-    // Limpiar monedas que pasaron 2.5 segundos
     float tiempoActual = relojGeneral.getElapsedTime().asSeconds();
-    monedas.erase(std::remove_if(monedas.begin(), monedas.end(),
-        [tiempoActual](Moneda* moneda) {
-            if (tiempoActual - moneda->getTiempoAparicion() > 2.5f) {
-                delete moneda;
-                return true;
-            }
-            return false;
-        }), monedas.end());
+    monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [tiempoActual](Moneda* m) {
+        if (tiempoActual - m->getTiempoAparicion() > 2.5f) { delete m; return true; }
+        return false;
+    }), monedas.end());
 }
 
 void VistaJuego::dibujar(sf::RenderWindow& ventana) {
     ventana.clear();
     ventana.draw(spriteFondo);
-
     personaje->draw(ventana);
-
-    for (auto roca : rocas) {
-        roca->draw(ventana);
-    }
-
-    for (auto enemigo : enemigos) {
-        enemigo->draw(ventana);
-    }
-
-    for (auto moneda : monedas) {
-        moneda->draw(ventana);
-    }
+    for (auto r : rocas) r->draw(ventana);
+    for (auto e : enemigos) e->draw(ventana);
+    for (auto m : monedas) m->draw(ventana);
+    ventana.draw(textoPuntos);
 }
 
 void VistaJuego::verificarColisiones(Juego& juego) {
     sf::FloatRect boundsPersonaje = personaje->getGlobalBounds();
 
-    // Colisión con rocas
-    for (auto roca : rocas) {
-        if (boundsPersonaje.intersects(roca->getGlobalBounds())) {
+    for (auto r : rocas) {
+        if (boundsPersonaje.intersects(r->getGlobalBounds())) {
             juego.cambiarVista(new VistaMuerte());
             return;
         }
     }
 
-    // Colisión con enemigos
-    for (auto enemigo : enemigos) {
-        if (boundsPersonaje.intersects(enemigo->getGlobalBounds())) {
+    for (auto e : enemigos) {
+        if (boundsPersonaje.intersects(e->getGlobalBounds())) {
             juego.cambiarVista(new VistaMuerte());
             return;
         }
     }
 
-    // Colisión con monedas
-    monedas.erase(std::remove_if(monedas.begin(), monedas.end(),
-        [boundsPersonaje, this](Moneda* moneda) {
-            if (boundsPersonaje.intersects(moneda->getGlobalBounds())) {
-                sonidoMoneda.play();
-                delete moneda;
-                return true;
+    monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [this, &boundsPersonaje](Moneda* m) {
+        if (boundsPersonaje.intersects(m->getGlobalBounds())) {
+            monedasConsecutivas++;
+            puntos += 10;
+            if (monedasConsecutivas == 3) {
+                puntos += 30;
+                monedasConsecutivas = 0;
             }
-            return false;
-        }), monedas.end());
+            textoPuntos.setString("Puntos: " + std::to_string(puntos));
+            sonidoMoneda.play();
+            delete m;
+            return true;
+        }
+        return false;
+    }), monedas.end());
 }
