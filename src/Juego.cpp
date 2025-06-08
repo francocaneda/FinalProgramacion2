@@ -1,19 +1,19 @@
 #include "Juego.h"
 #include <iostream>
 
-Juego::Juego() : ventana(sf::VideoMode(1280, 720), "SFML Juego"), vistaActual(nullptr) {
-    if (!musicaFondo.openFromFile("assets/musicaFondo.ogg")) {
-        std::cerr << "Error cargando musicaFondo.ogg\n";
-    } else {
+Juego::Juego() : ventana(sf::VideoMode(1280, 720), "SFML Juego"), vistaActual(nullptr), musicaEnReproduccion(false) {
+    if (musicaFondo.openFromFile("assets/musicaFondo.ogg")) {
         musicaFondo.setLoop(true);
         musicaFondo.play();
+        musicaEnReproduccion = true;
+    } else {
+        std::cerr << "Error al cargar musicaFondo.ogg\n";
     }
 }
 
 Juego::~Juego() {
     if (vistaActual)
         delete vistaActual;
-    // La musicaFondo se detiene automáticamente al destruirse el objeto.
 }
 
 void Juego::cambiarVista(Vista* nuevaVista) {
@@ -32,5 +32,22 @@ void Juego::ejecutar() {
             ventana.display();
         }
     }
-    // La música se detendrá al salir porque se destruye musicaFondo
+}
+
+void Juego::pausarMusica() {
+    if (musicaEnReproduccion) {
+        musicaFondo.pause();
+        musicaEnReproduccion = false;
+    }
+}
+
+void Juego::reproducirMusica() {
+    if (!musicaEnReproduccion) {
+        musicaFondo.play();
+        musicaEnReproduccion = true;
+    }
+}
+
+bool Juego::musicaActiva() const {
+    return musicaEnReproduccion;
 }

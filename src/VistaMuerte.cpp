@@ -31,7 +31,7 @@ VistaMuerte::VistaMuerte() : seleccionActual(0), cambioVistaSolicitado(false) {
         text.setString(textos[i]);
         text.setCharacterSize(35);
         text.setFillColor(sf::Color::White);
-        text.setPosition(400, 300 + i * 60);
+        text.setPosition(130, 420 + i * 60);
         opciones.push_back(text);
     }
 
