@@ -3,7 +3,7 @@
 #include "VistaOpciones.h"
 #include <iostream>
 
-VistaMenu::VistaMenu() {
+VistaMenu::VistaMenu() : seleccionActual(0) {
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
         std::cerr << "Error cargando la fuente arial.ttf\n";
     }
@@ -63,10 +63,12 @@ void VistaMenu::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                     sonidoCambio.play();
                 }
             } else if (event.key.code == sf::Keyboard::Enter) {
+                sonidoCambio.play();
+
                 if (seleccionActual == 0) {
-                    juego.cambiarVista(new VistaJuego());
+                    juego.solicitarCambioVista(new VistaJuego());
                 } else if (seleccionActual == 1) {
-                    juego.cambiarVista(new VistaOpciones());
+                    juego.solicitarCambioVista(new VistaOpciones());
                 } else if (seleccionActual == 2) {
                     ventana.close();
                 }

@@ -1,5 +1,7 @@
 #include "VistaOpciones.h"
 #include "VistaMenu.h"
+#include "VistaInstrucciones.h"
+
 #include <iostream>
 
 VistaOpciones::VistaOpciones()
@@ -15,8 +17,8 @@ VistaOpciones::VistaOpciones()
 
     spriteFondo.setTexture(texturaFondo);
     sf::Vector2u textureSize = texturaFondo.getSize();
-    float scaleX = 1280.0f / textureSize.x;
-    float scaleY = 720.0f / textureSize.y;
+    float scaleX = 1280.f / textureSize.x;
+    float scaleY = 720.f / textureSize.y;
     spriteFondo.setScale(scaleX, scaleY);
 
     opciones = {
@@ -30,7 +32,7 @@ VistaOpciones::VistaOpciones()
         text.setFont(font);
         text.setString(opciones[i]);
         text.setCharacterSize(35);
-        text.setPosition(250, 250 + i * 60);
+        text.setPosition(250.f, 250.f + i * 60.f);
         textos.push_back(text);
     }
 
@@ -74,13 +76,11 @@ void VistaOpciones::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                         juego.pausarMusica();
 
                 } else if (seleccionActual == 1) {
-                    std::cout << "Instrucciones:\n";
-                    std::cout << "- Flechas izquierda/derecha para moverse\n";
-                    std::cout << "- Barra espaciadora para saltar\n";
-                    std::cout << "- Evita los obstáculos\n";
+                    // Cambio diferido para evitar superposiciones
+                    juego.solicitarCambioVista(new VistaInstrucciones());
 
                 } else if (seleccionActual == 2) {
-                    juego.cambiarVista(new VistaMenu());
+                    juego.solicitarCambioVista(new VistaMenu());
                 }
             }
         }
@@ -97,6 +97,7 @@ void VistaOpciones::dibujar(sf::RenderWindow& ventana) {
     for (const auto& texto : textos) {
         ventana.draw(texto);
     }
+    // NO llamar a ventana.display() aquí, se hace en Juego::ejecutar()
 }
 
 void VistaOpciones::actualizarTextos() {

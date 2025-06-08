@@ -1,9 +1,9 @@
 #include "VistaMuerte.h"
 #include "VistaMenu.h"
-#include "VistaJuego.h"  // Asegurate de que exista si "Volver a jugar" inicia el juego
+#include "VistaJuego.h"  // Asegúrate de que exista
 #include <iostream>
 
-VistaMuerte::VistaMuerte() : seleccionActual(0), cambioVistaSolicitado(false) {
+VistaMuerte::VistaMuerte() : seleccionActual(0) {
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
         std::cerr << "Error cargando la fuente arial.ttf\n";
     }
@@ -51,7 +51,7 @@ void VistaMuerte::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
             ventana.close();
         }
 
-        if (!cambioVistaSolicitado && event.type == sf::Event::KeyPressed) {
+        if (event.type == sf::Event::KeyPressed) {
             if (event.key.code == sf::Keyboard::Up) {
                 if (seleccionActual > 0) {
                     seleccionActual--;
@@ -65,11 +65,12 @@ void VistaMuerte::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                     sonidoCambio.play();
                 }
             } else if (event.key.code == sf::Keyboard::Enter) {
-                cambioVistaSolicitado = true;
+                sonidoCambio.play();
+
                 if (seleccionActual == 0) {
-                    juego.cambiarVista(new VistaMenu());
+                    juego.solicitarCambioVista(new VistaMenu());
                 } else if (seleccionActual == 1) {
-                    juego.cambiarVista(new VistaJuego());  // Asegurate de tener esta clase
+                    juego.solicitarCambioVista(new VistaJuego());
                 } else if (seleccionActual == 2) {
                     ventana.close();
                 }
@@ -92,10 +93,6 @@ void VistaMuerte::dibujar(sf::RenderWindow& ventana) {
 
 void VistaMuerte::actualizarColores() {
     for (size_t i = 0; i < opciones.size(); ++i) {
-        if (static_cast<int>(i) == seleccionActual) {
-            opciones[i].setFillColor(sf::Color::Yellow);
-        } else {
-            opciones[i].setFillColor(sf::Color::White);
-        }
+        opciones[i].setFillColor(i == (size_t)seleccionActual ? sf::Color::Yellow : sf::Color::White);
     }
 }
