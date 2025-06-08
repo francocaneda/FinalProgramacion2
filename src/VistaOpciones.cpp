@@ -6,15 +6,14 @@ VistaOpciones::VistaOpciones()
     : seleccionActual(0), musicaActiva(true) {
 
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
-        std::cerr << "Error cargando la fuente arial.ttf\n";
+        std::cerr << "Error cargando fuente arial.ttf\n";
     }
 
-    if (!texturaFondo.loadFromFile("assets/fondoMenu.png")) {  // Fondo cambiado acá
+    if (!texturaFondo.loadFromFile("assets/fondoMenu.png")) {
         std::cerr << "Error cargando fondoMenu.png\n";
     }
 
     spriteFondo.setTexture(texturaFondo);
-
     sf::Vector2u textureSize = texturaFondo.getSize();
     float scaleX = 1280.0f / textureSize.x;
     float scaleY = 720.0f / textureSize.y;
@@ -22,8 +21,7 @@ VistaOpciones::VistaOpciones()
 
     opciones = {
         "Musica: ON",
-        "Mostrar controles",
-        "Ver creditos",
+        "Instrucciones",
         "Volver al menu"
     };
 
@@ -74,11 +72,14 @@ void VistaOpciones::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                         juego.reproducirMusica();
                     else
                         juego.pausarMusica();
+
                 } else if (seleccionActual == 1) {
-                    // TODO: Mostrar controles
+                    std::cout << "Instrucciones:\n";
+                    std::cout << "- Flechas izquierda/derecha para moverse\n";
+                    std::cout << "- Barra espaciadora para saltar\n";
+                    std::cout << "- Evita los obstáculos\n";
+
                 } else if (seleccionActual == 2) {
-                    std::cout << "Juego creado por TuNombre - 2025" << std::endl;
-                } else if (seleccionActual == 3) {
                     juego.cambiarVista(new VistaMenu());
                 }
             }
@@ -87,7 +88,7 @@ void VistaOpciones::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
 }
 
 void VistaOpciones::actualizar(Juego& juego) {
-    // Nada ahora
+    // No necesita actualización por ahora
 }
 
 void VistaOpciones::dibujar(sf::RenderWindow& ventana) {

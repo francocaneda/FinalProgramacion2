@@ -16,8 +16,6 @@ public:
 
 private:
     sf::Font font;
-    sf::Text textoTitulo;
-
     std::vector<std::string> opciones;
     std::vector<sf::Text> textos;
     int seleccionActual;
