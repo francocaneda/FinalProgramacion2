@@ -1397,7 +1397,7 @@
 	"Juego.h"
 	"VistaMenu.h"
 
-1749423342 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
+1749522521 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	"Vista.h"
@@ -1820,7 +1820,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1749398002 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personaje.h
+1749562562 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personaje.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
@@ -1828,7 +1828,7 @@
 	"Juego.h"
 	<iostream>
 
-1749398123 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
+1749562570 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
 	"Personaje.h"
 	<iostream>
 
@@ -1842,7 +1842,7 @@
 	<SFML/Audio.hpp>
 	<vector>
 
-1749423867 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
+1749563319 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
 	"VistaJuego.h"
 	"VistaMuerte.h"
 	"Moneda.h"
@@ -1850,10 +1850,11 @@
 	<algorithm>
 	<cstdlib>
 
-1749421732 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
+1749562637 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
 	"Vista.h"
 	"Juego.h"
 	"Personaje.h"
+	"PersonajeSecundario.h"
 	"Roca.h"
 	"Enemigo.h"
 	"Moneda.h"
@@ -1875,7 +1876,7 @@
 	"VistaOpciones.h"
 	<iostream>
 
-1749424030 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamuerte.cpp
+1749424520 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistamuerte.cpp
 	"VistaMuerte.h"
 	"VistaMenu.h"
 	"VistaJuego.h"
@@ -2025,4 +2026,12 @@
 
 1749420825 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\moneda.h
 	<SFML/Graphics.hpp>
+
+1749563396 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personajesecundario.cpp
+	"PersonajeSecundario.h"
+	<iostream>
+
+1749562594 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personajesecundario.h
+	<SFML/Graphics.hpp>
+	<SFML/Audio.hpp>
 

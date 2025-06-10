@@ -3,7 +3,8 @@
 
 #include "Vista.h"
 #include "Juego.h"
-#include "Personaje.h"
+#include "Personaje.h" // Incluimos Personaje
+#include "PersonajeSecundario.h" // Incluimos PersonajeSecundario
 #include "Roca.h"
 #include "Enemigo.h"
 #include "Moneda.h"
@@ -16,12 +17,15 @@ private:
     sf::Texture texturaFondo;
     sf::Sprite spriteFondo;
 
-    sf::Texture texturaPersonaje;
+    sf::Texture texturaPersonaje; // Textura para el personaje principal
+    sf::Texture texturaPersonajeSecundario; // Nueva textura para el personaje secundario (opcional, puedes usar la misma)
     sf::Texture texturaRoca;
     sf::Texture texturaEnemigo;
     sf::Texture texturaMoneda;
 
-    Personaje* personaje;
+    Personaje* personajePrincipal; // Renombrado
+    PersonajeSecundario* personajeSecundario; // Nuevo objeto
+
     std::vector<Roca*> rocas;
     std::vector<Enemigo*> enemigos;
     std::vector<Moneda*> monedas;

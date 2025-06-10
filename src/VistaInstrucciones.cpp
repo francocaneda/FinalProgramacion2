@@ -20,10 +20,10 @@ VistaInstrucciones::VistaInstrucciones() : seleccionActual(0) {
     textoInstrucciones.setFont(font);
     textoInstrucciones.setString(
         "INSTRUCCIONES:\n\n"
-        "- Usa las FLECHAS izquierda/derecha para moverte.\n"
-        "- Usa ESPACIO para saltar.\n"
-        "- Evita las bombas que caen y los enemigos.\n"
-        "- Recoge la mayor cantidad de monedas.\n"
+        "- Usen las FLECHAS izquierda/derecha A/D para moverte.\n"
+        "- Usen Flecha Arriba y W para saltar.\n"
+        "- Eviten las bombas que caen y los enemigos.\n"
+        "- Recojan la mayor cantidad de monedas.\n"
         "- 1 moneda = 10 puntos.\n"
         "- 3 monedas consecutivas = bonus 30 pts."
     );

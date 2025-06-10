@@ -17,6 +17,13 @@ VistaJuego::VistaJuego() {
 
     if (!texturaPersonaje.loadFromFile("assets/paloma.png"))
         std::cerr << "Error cargando paloma.png\n";
+
+    // Puedes usar la misma textura o una diferente para el secundario
+     if (!texturaPersonajeSecundario.loadFromFile("assets/personajeSecundario.png"))
+         std::cerr << "Error cargando otra_paloma.png\n";
+    // else
+    //texturaPersonajeSecundario = texturaPersonaje; // Usar la misma textura por simplicidad
+
     if (!texturaRoca.loadFromFile("assets/roca.png"))
         std::cerr << "Error cargando roca.png\n";
     if (!texturaEnemigo.loadFromFile("assets/enemigo.png"))
@@ -24,17 +31,19 @@ VistaJuego::VistaJuego() {
     if (!texturaMoneda.loadFromFile("assets/moneda.png"))
         std::cerr << "Error cargando moneda.png\n";
 
-    if (!fuente.loadFromFile("assets/fonts/arial.ttf"))
+    if (!fuente.loadFromFile("assets/fonts/arial.ttf")) // Ruta corregida si usas assets/fonts/
         std::cerr << "Error cargando fuente arial.ttf\n";
 
     if (!bufferMoneda.loadFromFile("assets/moneda.ogg"))
         std::cerr << "Error cargando sonido moneda.ogg\n";
     sonidoMoneda.setBuffer(bufferMoneda);
 
-    personaje = new Personaje(texturaPersonaje, 100, 500);
+    // Instanciamos ambos personajes
+    personajePrincipal = new Personaje(texturaPersonaje, 100, 500);
+    personajeSecundario = new PersonajeSecundario(texturaPersonajeSecundario, 100, 500);
 
     tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
-    tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 3.0f));
+    tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
     relojGeneral.restart();
 
     puntos = 0;
@@ -48,7 +57,8 @@ VistaJuego::VistaJuego() {
 }
 
 VistaJuego::~VistaJuego() {
-    delete personaje;
+    delete personajePrincipal;
+    delete personajeSecundario; // Liberar memoria del segundo personaje
     for (auto r : rocas) delete r;
     for (auto e : enemigos) delete e;
     for (auto m : monedas) delete m;
@@ -58,24 +68,48 @@ void VistaJuego::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
     sf::Event event;
     while (ventana.pollEvent(event)) {
         if (event.type == sf::Event::Closed) ventana.close();
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
-            personaje->saltar();
+
+        // Control del personaje principal (flecha ARRIBA para saltar)
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up) {
+            if (personajePrincipal->estaVivo()) { // Solo si está vivo
+                personajePrincipal->saltar();
+            }
+        }
+        // Control del personaje secundario (W para saltar)
+        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::W) {
+            if (personajeSecundario->estaVivo()) { // Solo si está vivo
+                personajeSecundario->saltar();
+            }
+        }
     }
 }
 
 void VistaJuego::actualizar(Juego& juego) {
     float velocidadHorizontal = 0.35f;
-    float nuevaPosX = personaje->getPosX();
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) nuevaPosX -= velocidadHorizontal;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) nuevaPosX += velocidadHorizontal;
-    if (nuevaPosX < 0) nuevaPosX = 0;
-    if (nuevaPosX + personaje->getWidth() > 1280) nuevaPosX = 1280 - personaje->getWidth();
+    // Actualizar personaje principal (flechas IZQUIERDA/DERECHA)
+    if (personajePrincipal->estaVivo()) {
+        float nuevaPosXPrincipal = personajePrincipal->getPosX();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) nuevaPosXPrincipal -= velocidadHorizontal;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) nuevaPosXPrincipal += velocidadHorizontal;
+        if (nuevaPosXPrincipal < 0) nuevaPosXPrincipal = 0;
+        if (nuevaPosXPrincipal + personajePrincipal->getWidth() > 1280) nuevaPosXPrincipal = 1280 - personajePrincipal->getWidth();
+        personajePrincipal->setPosX(nuevaPosXPrincipal);
+        personajePrincipal->actualizar();
+    }
 
-    personaje->setPosX(nuevaPosX);
-    personaje->actualizar();
+    // Actualizar personaje secundario (A/D)
+    if (personajeSecundario->estaVivo()) {
+        float nuevaPosXSecundario = personajeSecundario->getPosX();
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) nuevaPosXSecundario -= velocidadHorizontal;
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) nuevaPosXSecundario += velocidadHorizontal;
+        if (nuevaPosXSecundario < 0) nuevaPosXSecundario = 0;
+        if (nuevaPosXSecundario + personajeSecundario->getWidth() > 1280) nuevaPosXSecundario = 1280 - personajeSecundario->getWidth();
+        personajeSecundario->setPosX(nuevaPosXSecundario);
+        personajeSecundario->actualizar();
+    }
 
-    // Spawns
+    // Spawns (mantener igual)
     if (clockRocas.getElapsedTime().asSeconds() > tiempoProximoSpawnRoca) {
         float x = rand() % (1280 - 100);
         rocas.push_back(new Roca(texturaRoca, x));
@@ -102,6 +136,7 @@ void VistaJuego::actualizar(Juego& juego) {
     for (auto r : rocas) r->actualizar(0.13f);
     for (auto e : enemigos) e->actualizar();
 
+    // Colisiones
     verificarColisiones(juego);
 
     rocas.erase(std::remove_if(rocas.begin(), rocas.end(), [](Roca* r) {
@@ -128,7 +163,15 @@ void VistaJuego::actualizar(Juego& juego) {
 void VistaJuego::dibujar(sf::RenderWindow& ventana) {
     ventana.clear();
     ventana.draw(spriteFondo);
-    personaje->draw(ventana);
+
+    // Dibujar personajes solo si están vivos
+    if (personajePrincipal->estaVivo()) {
+        personajePrincipal->draw(ventana);
+    }
+    if (personajeSecundario->estaVivo()) {
+        personajeSecundario->draw(ventana);
+    }
+
     for (auto r : rocas) r->draw(ventana);
     for (auto e : enemigos) e->draw(ventana);
     for (auto m : monedas) m->draw(ventana);
@@ -136,26 +179,69 @@ void VistaJuego::dibujar(sf::RenderWindow& ventana) {
 }
 
 void VistaJuego::verificarColisiones(Juego& juego) {
-    sf::FloatRect boundsPersonaje = personaje->getGlobalBounds();
+    bool personajePrincipalMuerto = false;
+    bool personajeSecundarioMuerto = false;
 
-    for (auto r : rocas) {
-        if (boundsPersonaje.intersects(r->getGlobalBounds())) {
-            juego.setPuntajeFinal(puntos);
-            juego.solicitarCambioVista(new VistaMuerte(puntos));
-            return;
+    // Colisiones de personaje principal
+    if (personajePrincipal->estaVivo()) {
+        sf::FloatRect boundsPersonajePrincipal = personajePrincipal->getGlobalBounds();
+        for (auto r : rocas) {
+            if (boundsPersonajePrincipal.intersects(r->getGlobalBounds())) {
+                personajePrincipal->morir();
+                personajePrincipalMuerto = true;
+                break; // Ya colisionó, no necesita verificar más rocas
+            }
         }
+        if (!personajePrincipalMuerto) { // Si no murió con roca, verificar enemigos
+            for (auto e : enemigos) {
+                if (boundsPersonajePrincipal.intersects(e->getGlobalBounds())) {
+                    personajePrincipal->morir();
+                    personajePrincipalMuerto = true;
+                    break;
+                }
+            }
+        }
+    } else {
+        personajePrincipalMuerto = true; // Ya estaba muerto
     }
 
-    for (auto e : enemigos) {
-        if (boundsPersonaje.intersects(e->getGlobalBounds())) {
-            juego.setPuntajeFinal(puntos);
-            juego.solicitarCambioVista(new VistaMuerte(puntos));
-            return;
+    // Colisiones de personaje secundario
+    if (personajeSecundario->estaVivo()) {
+        sf::FloatRect boundsPersonajeSecundario = personajeSecundario->getGlobalBounds();
+        for (auto r : rocas) {
+            if (boundsPersonajeSecundario.intersects(r->getGlobalBounds())) {
+                personajeSecundario->morir();
+                personajeSecundarioMuerto = true;
+                break;
+            }
         }
+        if (!personajeSecundarioMuerto) { // Si no murió con roca, verificar enemigos
+            for (auto e : enemigos) {
+                if (boundsPersonajeSecundario.intersects(e->getGlobalBounds())) {
+                    personajeSecundario->morir();
+                    personajeSecundarioMuerto = true;
+                    break;
+                }
+            }
+        }
+    } else {
+        personajeSecundarioMuerto = true; // Ya estaba muerto
     }
 
-    monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [this, &boundsPersonaje](Moneda* m) {
-        if (boundsPersonaje.intersects(m->getGlobalBounds())) {
+    // Colisiones con monedas (para ambos personajes, si están vivos)
+    // Usamos un remove_if con lambda para eliminar monedas y sumar puntos
+    monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [this](Moneda* m) {
+        bool colisionConPrincipal = false;
+        if (personajePrincipal->estaVivo()) {
+            colisionConPrincipal = personajePrincipal->getGlobalBounds().intersects(m->getGlobalBounds());
+        }
+
+        bool colisionConSecundario = false;
+        if (personajeSecundario->estaVivo()) {
+            colisionConSecundario = personajeSecundario->getGlobalBounds().intersects(m->getGlobalBounds());
+        }
+
+        if (colisionConPrincipal || colisionConSecundario) {
             monedasConsecutivas++;
             puntos += 10;
             if (monedasConsecutivas == 3) {
@@ -165,8 +251,14 @@ void VistaJuego::verificarColisiones(Juego& juego) {
             textoPuntos.setString("Puntos: " + std::to_string(puntos));
             sonidoMoneda.play();
             delete m;
-            return true;
+            return true; // Eliminar la moneda
         }
         return false;
     }), monedas.end());
+
+    // Verificar condición de fin de juego: ambos personajes muertos
+    if (personajePrincipalMuerto && personajeSecundarioMuerto) {
+        juego.setPuntajeFinal(puntos);
+        juego.solicitarCambioVista(new VistaMuerte(puntos));
+    }
 }

@@ -1,10 +1,10 @@
-#include "Personaje.h"
+#include "PersonajeSecundario.h"
 #include <iostream>
 
-Personaje::Personaje(sf::Texture& texture, float x, float y) : vivo(true) { // Inicializamos vivo en true
+PersonajeSecundario::PersonajeSecundario(sf::Texture& texture, float x, float y) : vivo(true) {
     sprite.setTexture(texture);
-    sprite.setPosition(x, y);
-    sprite.setScale(0.25f, 0.25f);
+    sprite.setPosition(x + 150, y); // Ligeramente a la derecha del principal
+    sprite.setScale(0.22f, 0.22f); // Un poco más pequeño
 
     // Cargar sonido de salto
     if (!bufferSalto.loadFromFile("assets/salto.ogg")) {
@@ -14,47 +14,38 @@ Personaje::Personaje(sf::Texture& texture, float x, float y) : vivo(true) { // I
     }
 }
 
-void Personaje::draw(sf::RenderWindow& window) {
+void PersonajeSecundario::draw(sf::RenderWindow& window) {
     window.draw(sprite);
 }
 
-void Personaje::move(float offsetX) {
+void PersonajeSecundario::move(float offsetX) {
     sprite.move(offsetX, 0);
 }
 
-void Personaje::setPosX(float x) {
+void PersonajeSecundario::setPosX(float x) {
     sf::Vector2f pos = sprite.getPosition();
     sprite.setPosition(x, pos.y);
 }
 
-void Personaje::saltar() {
+void PersonajeSecundario::saltar() {
     if (enSuelo) {
-        velocidadSalto = -1;  // Indicamos que comienza la subida
+        velocidadSalto = -1;
         enSuelo = false;
-
-        // Reproducir sonido de salto
         sonidoSalto.play();
     }
 }
 
-void Personaje::actualizar() {
+void PersonajeSecundario::actualizar() {
     if (!enSuelo) {
         float posY = sprite.getPosition().y;
 
         if (velocidadSalto < 0) {
-            // Subiendo
             sprite.move(0, velocidadSubidaConstante);
-
-            // Si llegamos a altura mÃ¡xima â†’ comenzar bajada
             if (posY <= alturaMaximaSalto) {
-                velocidadSalto = 1; // comenzar la bajada
+                velocidadSalto = 1;
             }
-
         } else {
-            // Bajando
             sprite.move(0, velocidadBajadaConstante);
-
-            // Suelo
             if (posY >= 500) {
                 sprite.setPosition(sprite.getPosition().x, 500);
                 velocidadSalto = 0;
@@ -64,27 +55,27 @@ void Personaje::actualizar() {
     }
 }
 
-float Personaje::getPosX() const {
+float PersonajeSecundario::getPosX() const {
     return sprite.getPosition().x;
 }
 
-float Personaje::getWidth() const {
+float PersonajeSecundario::getWidth() const {
     return sprite.getGlobalBounds().width;
 }
 
-float Personaje::getPosY() const {
+float PersonajeSecundario::getPosY() const {
     return sprite.getPosition().y;
 }
 
-sf::FloatRect Personaje::getGlobalBounds() const {
+sf::FloatRect PersonajeSecundario::getGlobalBounds() const {
     return sprite.getGlobalBounds();
 }
 
-bool Personaje::estaVivo() const {
+bool PersonajeSecundario::estaVivo() const {
     return vivo;
 }
 
-void Personaje::morir() {
+void PersonajeSecundario::morir() {
     vivo = false;
-    std::cout << "Un personaje ha muerto!\n";
+    std::cout << "Un personaje secundario ha muerto!\n";
 }

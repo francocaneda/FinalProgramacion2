@@ -1,12 +1,12 @@
-#ifndef PERSONAJE_H
-#define PERSONAJE_H
+#ifndef PERSONAJESECUNDARIO_H
+#define PERSONAJESECUNDARIO_H
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-class Personaje {
+class PersonajeSecundario {
 public:
-    Personaje(sf::Texture& texture, float x, float y);
+    PersonajeSecundario(sf::Texture& texture, float x, float y);
     void draw(sf::RenderWindow& window);
     void move(float offsetX);
     void setPosX(float x);
@@ -37,4 +37,4 @@ private:
     float velocidadBajadaConstante = 0.35f;
 };
 
-#endif // PERSONAJE_H
+#endif // PERSONAJESECUNDARIO_H
