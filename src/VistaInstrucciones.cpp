@@ -20,7 +20,7 @@ VistaInstrucciones::VistaInstrucciones() : seleccionActual(0) {
     textoInstrucciones.setFont(font);
     textoInstrucciones.setString(
         "INSTRUCCIONES:\n\n"
-        "- Usen las FLECHAS izquierda/derecha A/D para moverte.\n"
+        "- Usen las FLECHAS izquierda/derecha A/D para moverse.\n"
         "- Usen Flecha Arriba y W para saltar.\n"
         "- Eviten las bombas que caen y los enemigos.\n"
         "- Recojan la mayor cantidad de monedas.\n"

@@ -1828,7 +1828,7 @@
 	"Juego.h"
 	<iostream>
 
-1749562570 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
+1749564767 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personaje.cpp
 	"Personaje.h"
 	<iostream>
 
@@ -1842,7 +1842,7 @@
 	<SFML/Audio.hpp>
 	<vector>
 
-1749563319 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
+1749564960 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistajuego.cpp
 	"VistaJuego.h"
 	"VistaMuerte.h"
 	"Moneda.h"
@@ -1850,7 +1850,7 @@
 	<algorithm>
 	<cstdlib>
 
-1749562637 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
+1749564635 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
 	"Vista.h"
 	"Juego.h"
 	"Personaje.h"
@@ -2011,7 +2011,7 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1749422754 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistainstrucciones.cpp
+1749563525 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistainstrucciones.cpp
 	"VistaInstrucciones.h"
 	"VistaOpciones.h"
 	<iostream>
@@ -2027,7 +2027,7 @@
 1749420825 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\moneda.h
 	<SFML/Graphics.hpp>
 
-1749563396 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personajesecundario.cpp
+1749564772 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personajesecundario.cpp
 	"PersonajeSecundario.h"
 	<iostream>
 

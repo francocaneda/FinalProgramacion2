@@ -3,7 +3,7 @@
 #include "Moneda.h"
 #include <iostream>
 #include <algorithm>
-#include <cstdlib>
+#include <cstdlib> // Para rand()
 
 VistaJuego::VistaJuego() {
     if (!texturaFondo.loadFromFile("assets/fondoJuego.png"))
@@ -18,11 +18,8 @@ VistaJuego::VistaJuego() {
     if (!texturaPersonaje.loadFromFile("assets/paloma.png"))
         std::cerr << "Error cargando paloma.png\n";
 
-    // Puedes usar la misma textura o una diferente para el secundario
-     if (!texturaPersonajeSecundario.loadFromFile("assets/personajeSecundario.png"))
-         std::cerr << "Error cargando otra_paloma.png\n";
-    // else
-    //texturaPersonajeSecundario = texturaPersonaje; // Usar la misma textura por simplicidad
+    if (!texturaPersonajeSecundario.loadFromFile("assets/personajeSecundario.png"))
+        std::cerr << "Error cargando personajeSecundario.png\n"; // Mensaje de error actualizado
 
     if (!texturaRoca.loadFromFile("assets/roca.png"))
         std::cerr << "Error cargando roca.png\n";
@@ -43,7 +40,7 @@ VistaJuego::VistaJuego() {
     personajeSecundario = new PersonajeSecundario(texturaPersonajeSecundario, 100, 500);
 
     tiempoProximoSpawnRoca = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
-    tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f));
+    tiempoProximoSpawnMoneda = 2.0f + static_cast<float>(rand()) / (static_cast<float>(RAND_MAX / 2.0f)); // Corregido a 2.0f/2.0f para coincidir con tu código
     relojGeneral.restart();
 
     puntos = 0;
@@ -54,11 +51,24 @@ VistaJuego::VistaJuego() {
     textoPuntos.setFillColor(sf::Color::White);
     textoPuntos.setPosition(15.f, 15.f);
     textoPuntos.setString("Puntos: 0");
+
+    // --- Inicialización del mensaje de muerte ---
+    textoMensajeMuerte.setFont(fuente);
+    textoMensajeMuerte.setCharacterSize(40);
+    textoMensajeMuerte.setFillColor(sf::Color::Green);
+    // Posicionar en el centro superior (esto puede requerir ajustar el X según la longitud del texto)
+    textoMensajeMuerte.setPosition(1280 / 2.f, 50.f);
+    // Centrar el origen del texto para que el posicionamiento sea por el centro del texto
+    // El setOrigin debe hacerse DESPUÉS de setString si el tamaño del texto cambia,
+    // o se puede hacer una vez y asumir que la longitud del texto es similar.
+    // Lo haremos en verificarColisiones para re-centrar bien cada vez.
+    mostrarMensajeMuerte = false; // Por defecto no se muestra
+    // ----------------------------------------------
 }
 
 VistaJuego::~VistaJuego() {
     delete personajePrincipal;
-    delete personajeSecundario; // Liberar memoria del segundo personaje
+    delete personajeSecundario;
     for (auto r : rocas) delete r;
     for (auto e : enemigos) delete e;
     for (auto m : monedas) delete m;
@@ -158,6 +168,12 @@ void VistaJuego::actualizar(Juego& juego) {
         }
         return false;
     }), monedas.end());
+
+    // --- Lógica del mensaje de muerte ---
+    if (mostrarMensajeMuerte && relojMensajeMuerte.getElapsedTime().asSeconds() > duracionMensajeMuerte) {
+        mostrarMensajeMuerte = false; // Desactivar el mensaje después de la duración
+    }
+    // -------------------------------------
 }
 
 void VistaJuego::dibujar(sf::RenderWindow& ventana) {
@@ -176,6 +192,12 @@ void VistaJuego::dibujar(sf::RenderWindow& ventana) {
     for (auto e : enemigos) e->draw(ventana);
     for (auto m : monedas) m->draw(ventana);
     ventana.draw(textoPuntos);
+
+    // --- Dibujar el mensaje de muerte si está activo ---
+    if (mostrarMensajeMuerte) {
+        ventana.draw(textoMensajeMuerte);
+    }
+    // --------------------------------------------------
 }
 
 void VistaJuego::verificarColisiones(Juego& juego) {
@@ -189,6 +211,11 @@ void VistaJuego::verificarColisiones(Juego& juego) {
             if (boundsPersonajePrincipal.intersects(r->getGlobalBounds())) {
                 personajePrincipal->morir();
                 personajePrincipalMuerto = true;
+                // Mostrar mensaje de muerte para el personaje principal
+                textoMensajeMuerte.setString("Isaac ha muerto!");
+                textoMensajeMuerte.setOrigin(textoMensajeMuerte.getLocalBounds().width / 2.f, textoMensajeMuerte.getLocalBounds().height / 2.f); // Re-centrar
+                mostrarMensajeMuerte = true;
+                relojMensajeMuerte.restart(); // Iniciar el temporizador
                 break; // Ya colisionó, no necesita verificar más rocas
             }
         }
@@ -197,6 +224,11 @@ void VistaJuego::verificarColisiones(Juego& juego) {
                 if (boundsPersonajePrincipal.intersects(e->getGlobalBounds())) {
                     personajePrincipal->morir();
                     personajePrincipalMuerto = true;
+                    // Mostrar mensaje de muerte para el personaje principal
+                    textoMensajeMuerte.setString("Isaac ha muerto!");
+                    textoMensajeMuerte.setOrigin(textoMensajeMuerte.getLocalBounds().width / 2.f, textoMensajeMuerte.getLocalBounds().height / 2.f); // Re-centrar
+                    mostrarMensajeMuerte = true;
+                    relojMensajeMuerte.restart();
                     break;
                 }
             }
@@ -212,6 +244,11 @@ void VistaJuego::verificarColisiones(Juego& juego) {
             if (boundsPersonajeSecundario.intersects(r->getGlobalBounds())) {
                 personajeSecundario->morir();
                 personajeSecundarioMuerto = true;
+                // Mostrar mensaje de muerte para el personaje secundario
+                textoMensajeMuerte.setString("Diabolin ha muerto!");
+                textoMensajeMuerte.setOrigin(textoMensajeMuerte.getLocalBounds().width / 2.f, textoMensajeMuerte.getLocalBounds().height / 2.f); // Re-centrar
+                mostrarMensajeMuerte = true;
+                relojMensajeMuerte.restart();
                 break;
             }
         }
@@ -220,6 +257,11 @@ void VistaJuego::verificarColisiones(Juego& juego) {
                 if (boundsPersonajeSecundario.intersects(e->getGlobalBounds())) {
                     personajeSecundario->morir();
                     personajeSecundarioMuerto = true;
+                    // Mostrar mensaje de muerte para el personaje secundario
+                    textoMensajeMuerte.setString("Diabolin ha muerto!");
+                    textoMensajeMuerte.setOrigin(textoMensajeMuerte.getLocalBounds().width / 2.f, textoMensajeMuerte.getLocalBounds().height / 2.f); // Re-centrar
+                    mostrarMensajeMuerte = true;
+                    relojMensajeMuerte.restart();
                     break;
                 }
             }

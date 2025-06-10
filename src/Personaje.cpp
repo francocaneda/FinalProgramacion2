@@ -86,5 +86,4 @@ bool Personaje::estaVivo() const {
 
 void Personaje::morir() {
     vivo = false;
-    std::cout << "Un personaje ha muerto!\n";
 }

@@ -77,5 +77,4 @@ bool PersonajeSecundario::estaVivo() const {
 
 void PersonajeSecundario::morir() {
     vivo = false;
-    std::cout << "Un personaje secundario ha muerto!\n";
 }
