@@ -1393,9 +1393,16 @@
 
 1710896787 c:\users\franco\desktop\finalprogra - copia\finalcaneda\include\vista.h
 
-1749263409 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\main.cpp
+1749595525 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\main.cpp
 	"Juego.h"
 	"VistaMenu.h"
+	"tau/tau.h"
+	"Personaje.h"
+	"PersonajeSecundario.h"
+	"Enemigo.h"
+	"Moneda.h"
+	"Roca.h"
+	<SFML/Graphics.hpp>
 
 1749522521 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
 	<SFML/Graphics.hpp>
@@ -2011,7 +2018,7 @@
 	<SFML/Audio/Export.hpp>
 	<string>
 
-1749563525 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistainstrucciones.cpp
+1749565128 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\vistainstrucciones.cpp
 	"VistaInstrucciones.h"
 	"VistaOpciones.h"
 	<iostream>
@@ -2027,11 +2034,48 @@
 1749420825 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\moneda.h
 	<SFML/Graphics.hpp>
 
-1749564772 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personajesecundario.cpp
+1749595606 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\personajesecundario.cpp
 	"PersonajeSecundario.h"
 	<iostream>
 
 1749562594 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personajesecundario.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
+
+1749592935 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\tau\tau.h
+	<tau/types.h>
+	<tau/misc.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<stdarg.h>
+	<errno.h>
+	<libgen.h>
+	<unistd.h>
+	<sys/types.h>
+	<sys/wait.h>
+	<signal.h>
+	<time.h>
+	<fcntl.h>
+	<sys/stat.h>
+	<windows.h>
+	<io.h>
+	<valgrind.h>
+	<exception>
+	<limits.h>
+	<time.h>
+	<sys/syscall.h>
+	<unistd.h>
+	<time.h>
+	<mach/mach_time.h>
+
+1749592935 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\tau\types.h
+	<tau/compilers.h>
+	<cstdint>
+	<stdint.h>
+
+1749592935 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\tau\compilers.h
+
+1749592935 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\tau\misc.h
+	<inttypes.h>
 

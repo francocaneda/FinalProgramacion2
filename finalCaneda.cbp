@@ -16,6 +16,7 @@
 					<Add directory="SFML/bin" />
 					<Add directory="SFML/include" />
 					<Add directory="include" />
+					<Add directory="." />
 				</Compiler>
 				<Linker>
 					<Add library="sfml-graphics" />
@@ -46,6 +47,7 @@
 		<Unit filename="include/Juego.h" />
 		<Unit filename="include/Moneda.h" />
 		<Unit filename="include/Personaje.h" />
+		<Unit filename="include/PersonajeSecundario.h" />
 		<Unit filename="include/Roca.h" />
 		<Unit filename="include/Vista.h" />
 		<Unit filename="include/VistaInstrucciones.h" />
@@ -58,6 +60,7 @@
 		<Unit filename="src/Juego.cpp" />
 		<Unit filename="src/Moneda.cpp" />
 		<Unit filename="src/Personaje.cpp" />
+		<Unit filename="src/PersonajeSecundario.cpp" />
 		<Unit filename="src/Roca.cpp" />
 		<Unit filename="src/VistaInstrucciones.cpp" />
 		<Unit filename="src/VistaJuego.cpp" />

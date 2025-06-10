@@ -4,7 +4,7 @@
 PersonajeSecundario::PersonajeSecundario(sf::Texture& texture, float x, float y) : vivo(true) {
     sprite.setTexture(texture);
     sprite.setPosition(x + 150, y); // Ligeramente a la derecha del principal
-    sprite.setScale(0.22f, 0.22f); // Un poco más pequeño
+    sprite.setScale(0.23f, 0.23f); // Un poco más pequeño
 
     // Cargar sonido de salto
     if (!bufferSalto.loadFromFile("assets/salto.ogg")) {
