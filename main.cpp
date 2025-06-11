@@ -17,8 +17,8 @@
 
 
 // --- BLOQUE 1: INICIAR EL JUEGO (DESCOMENTAR ESTE BLOQUE para JUGAR) ---
-// Si quieres jugar, descomenta el siguiente bloque `int main()`.
-// Asegúrate de que el bloque `TAU_MAIN()` más abajo esté COMENTADO.
+// Si queres jugar, descomenta el siguiente bloque `int main()`.
+// Asegurate de que el bloque `TAU_MAIN()` más abajo esté COMENTADO.
 
 int main() {
     Juego juego;
@@ -29,7 +29,7 @@ int main() {
 }
 
 
-// --- FIN BLOQUE 1 ---
+
 
 
 
