@@ -76,7 +76,7 @@ void VistaOpciones::manejarEventos(sf::RenderWindow& ventana, Juego& juego) {
                         juego.pausarMusica();
 
                 } else if (seleccionActual == 1) {
-                    // Cambio diferido para evitar superposiciones
+
                     juego.solicitarCambioVista(new VistaInstrucciones());
 
                 } else if (seleccionActual == 2) {
@@ -97,7 +97,7 @@ void VistaOpciones::dibujar(sf::RenderWindow& ventana) {
     for (const auto& texto : textos) {
         ventana.draw(texto);
     }
-    // NO llamar a ventana.display() aquí, se hace en Juego::ejecutar()
+
 }
 
 void VistaOpciones::actualizarTextos() {

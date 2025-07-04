@@ -271,7 +271,7 @@ void VistaJuego::verificarColisiones(Juego& juego) {
     }
 
     // Colisiones con monedas (para ambos personajes, si están vivos)
-    // Usamos un remove_if con lambda para eliminar monedas y sumar puntos
+    // Uso un remove_if con lambda para eliminar monedas y sumar puntos
     monedas.erase(std::remove_if(monedas.begin(), monedas.end(), [this](Moneda* m) {
         bool colisionConPrincipal = false;
         if (personajePrincipal->estaVivo()) {

@@ -1,7 +1,7 @@
 #include "Personaje.h"
 #include <iostream>
 
-Personaje::Personaje(sf::Texture& texture, float x, float y) : vivo(true) { // Inicializamos vivo en true
+Personaje::Personaje(sf::Texture& texture, float x, float y) : vivo(true) { // Inicializo vivo en true
     sprite.setTexture(texture);
     sprite.setPosition(x, y);
     sprite.setScale(0.25f, 0.25f);

@@ -3,10 +3,10 @@
 
 PersonajeSecundario::PersonajeSecundario(sf::Texture& texture, float x, float y) : vivo(true) {
     sprite.setTexture(texture);
-    sprite.setPosition(x + 150, y); // Ligeramente a la derecha del principal
-    sprite.setScale(0.23f, 0.23f); // Un poco más pequeño
+    sprite.setPosition(x + 150, y); // A la derecha del personaje principal
+    sprite.setScale(0.23f, 0.23f);
 
-    // Cargar sonido de salto
+
     if (!bufferSalto.loadFromFile("assets/salto.ogg")) {
         std::cerr << "Error cargando salto.ogg\n";
     } else {

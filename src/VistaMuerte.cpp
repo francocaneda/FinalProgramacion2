@@ -4,7 +4,7 @@
 #include <iostream>
 
 VistaMuerte::VistaMuerte(int puntajeFinal)
-    : seleccionActual(0), puntaje(puntajeFinal)  // Guardamos el puntaje
+    : seleccionActual(0), puntaje(puntajeFinal)  // Guardo el puntaje
 {
     if (!font.loadFromFile("assets/fonts/arial.ttf")) {
         std::cerr << "Error cargando la fuente arial.ttf\n";

@@ -3,7 +3,7 @@
 Roca::Roca(sf::Texture& texture, float x) {
     sprite.setTexture(texture);
     sprite.setPosition(x, 0.0f); // comienza arriba
-    sprite.setScale(0.15f, 0.15f); // ajusta escala según tu imagen
+    sprite.setScale(0.15f, 0.15f);
 }
 
 void Roca::actualizar(float deltaTime) {

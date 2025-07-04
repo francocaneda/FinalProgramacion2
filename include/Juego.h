@@ -11,8 +11,8 @@ public:
     ~Juego();
 
     void ejecutar();
-    void cambiarVista(Vista* nuevaVista);          // Cambio inmediato (usa con cuidado)
-    void solicitarCambioVista(Vista* nuevaVista);  // Cambio diferido para evitar bugs
+    void cambiarVista(Vista* nuevaVista);
+    void solicitarCambioVista(Vista* nuevaVista);
 
     // Métodos para controlar la música
     void pausarMusica();

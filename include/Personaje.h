@@ -31,7 +31,7 @@ private:
     sf::SoundBuffer bufferSalto;
     sf::Sound sonidoSalto;
 
-    // Parámetros del salto ajustados para 1280x720
+
     float alturaMaximaSalto = 200.f;
     float velocidadSubidaConstante = -0.35f;
     float velocidadBajadaConstante = 0.35f;

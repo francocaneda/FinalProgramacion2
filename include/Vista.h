@@ -2,7 +2,7 @@
 #define VISTA_H
 
 #include <SFML/Graphics.hpp>
-class Juego; // Forward declaration para evitar inclusión circular
+class Juego;
 
 class Vista {
 public:

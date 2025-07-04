@@ -1404,7 +1404,7 @@
 	"Roca.h"
 	<SFML/Graphics.hpp>
 
-1749522521 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
+1751651315 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\juego.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 	"Vista.h"
@@ -1827,7 +1827,7 @@
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Window/GlResource.hpp>
 
-1749562562 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personaje.h
+1751651328 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\personaje.h
 	<SFML/Graphics.hpp>
 	<SFML/Audio.hpp>
 
@@ -1839,7 +1839,7 @@
 	"Personaje.h"
 	<iostream>
 
-1749322073 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vista.h
+1751651358 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vista.h
 	<SFML/Graphics.hpp>
 
 1749396930 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistamenu.h
@@ -1857,7 +1857,7 @@
 	<algorithm>
 	<cstdlib>
 
-1749564635 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
+1751651382 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\vistajuego.h
 	"Vista.h"
 	"Juego.h"
 	"Personaje.h"
@@ -1910,7 +1910,7 @@
 1749322036 c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\include\enemigo.h
 	<SFML/Graphics.hpp>
 
-1749321911 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp
+1751650896 source:c:\users\franc\onedrive\escritorio\finalcaneda\finalcaneda\src\enemigo.cpp
 	"Enemigo.h"
 	<cstdlib>
 

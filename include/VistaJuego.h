@@ -42,12 +42,12 @@ private:
     sf::Font fuente;
     sf::Text textoPuntos;
 
-    // --- Nuevos atributos para el mensaje de muerte ---
+
     sf::Text textoMensajeMuerte;
     sf::Clock relojMensajeMuerte; // Controla cuánto tiempo se muestra el mensaje
     float duracionMensajeMuerte = 1.0f; // Duración del mensaje en segundos
     bool mostrarMensajeMuerte = false;  // Bandera para controlar si se dibuja el mensaje
-    // ---------------------------------------------------
+
 
 public:
     VistaJuego();
